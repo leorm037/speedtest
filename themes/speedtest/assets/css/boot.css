@@ -1,0 +1,12 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* VARIABLES */
+:root {
+    --color-background: #fff;
+    --color-background-header: #ff6384;
+    --color-background-header-font: #99ffff;
+}

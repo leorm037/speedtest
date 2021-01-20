@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap');
+
+.header {
+    width: 100%;
+    background-color: var(--color-background-header);
+    color: var(--color-background-header-font);
+    font-family: 'Hachi Maru Pop', cursive;
+    font-weight: 400;
+}
+
+.header .header_container {
+    //max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.header .header_container a {
+    flex-basis: 300px;
+    padding: 0px 20px 5px 20px;
+    text-decoration: none;
+    color: var(--color-background-header-font);
+}
+
+header .header_container a h1 {
+    text-align: center;
+    font-size: 2em;
+    font-weight: 400;
+}        
+
+.header .header_container .header_nav {
+    flex-basis: calc(100% - 260px);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header_nav ul {
+    display: flex;
+    align-items: stretch;
+}
+
+.header_nav ul li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.header_nav ul li a{
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: #006666;
+}
+
+.header_nav ul li a:hover{
+    color: #000;
+    background-color: #fff;
+}
+
+.main {
+    //max-width: 1300px;
+    width: 100%;
+    display: block;
+}
+
+.main .main_content {
+    margin: 0 auto;
+}
+
+.main .main_graph {
+    width: calc(100% - 100px);
+    margin: 0 auto;
+}

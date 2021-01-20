@@ -5,7 +5,7 @@ $(function(){
 function showGraph(){
         {
                 $.post(
-                        "json.php",
+                        "http://localhost/speedtest/json/dias/3",
                         function(data){
                                 var timestamp = [];
                                 var download_velocidade = [];
@@ -16,13 +16,6 @@ function showGraph(){
                                         download_velocidade.push(numeral(data[i][1]/1000000).format('0,0.00'));
                                         upload_velocidade.push(numeral(data[i][2]/1000000).format('0,0.00'));
                                 }
-
-                                //console.group("Timestamp");
-                                //console.log(timestamp);
-                                //console.group("Download");
-                                //console.log(download_velocidade);
-	                        //console.group("Upload");
-                                //console.log(upload_velocidade);
 
                                 var chartdata = {
                                         labels: timestamp,

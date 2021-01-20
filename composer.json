@@ -1,0 +1,30 @@
+{
+    "name": "leorm037/speedtest",
+    "description": "Test speed internet connection",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Leonardo Rodrigues Marques",
+            "email": "leorm037@gmail.com",
+            "homepage": "https://www.paginaemconstrucao.com.br",
+            "role": "Developer"
+        }
+    ],
+    "config": {},
+    "autoload": {
+        "psr-4": {
+            "PaginaEmConstrucao\\": "src/"
+        },
+        "files": [
+            "src/boot/config.php",
+            "src/boot/helpers.php"
+        ]
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.3",
+        "coffeecode/router": "^1.0",
+        "league/plates": "v4.0.0-alpha"
+    }
+}
