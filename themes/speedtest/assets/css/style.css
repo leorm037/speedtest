@@ -25,6 +25,12 @@
     height: 198px;
 }
 
+.ajax_load_box_title {
+    font-family: 'Hachi Maru Pop', cursive;
+    font-weight: 400;
+    font-size: 2em;
+}
+
 .header {
     width: 100%;
     background-color: var(--color-background-header);
