@@ -3,10 +3,16 @@ $(function () {
         var load = $(".ajax_load");
         var a = $("#measure");
         var url = a.prop("href");
-        
+
         load.fadeIn(200).css("display", "flex");
-        $.get(url);
-        load.fadeOut(200);
-        location.reload();
+
+        $.get(url).done(function(){
+            load.fadeOut(200);
+            location.reload();
+        }).fail(function(){
+            alert("Não foi possível medir a velocidade");
+            load.fadeOut(200);
+        });
     });
 });
+
