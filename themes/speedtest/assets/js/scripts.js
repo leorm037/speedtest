@@ -16,3 +16,11 @@ $(function () {
     });
 });
 
+setTimeout(function(){
+   var d = new Date();
+   
+   if(d.getMinutes() == 0) {
+       location.reload();
+   }
+}, 1000);
+
