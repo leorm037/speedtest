@@ -9,6 +9,12 @@
         <link href="<?= theme("/assets/css/dygraph.css"); ?>" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        <div class="ajax_load">
+            <div class="ajax_load_box">
+                <div class="ajax_load_box_circle"></div>
+                <p class="ajax_load_box_title">Aguarde, carregando ...</p>
+            </div>
+        </div>
         <header class="header">
             <div class="header_container">
                 <a href="<?= url(); ?>">
@@ -16,6 +22,7 @@
                 </a>
                 <nav class="header_nav">
                     <ul>
+                        <li><a onclick="return false;" id="measure" href="<?= url("medir"); ?>">medir agora</a></li>
                         <li><a href="<?= url(); ?>">1 dia</a></li>
                         <li><a href="<?= url("dias/3"); ?>">3 dia</a></li>
                         <li><a href="<?= url("dias/7"); ?>">1 semana</a></li>
@@ -43,6 +50,7 @@
     <script src="<?= theme("/assets/js/locales.min.js"); ?>"></script>
     <script src="<?= theme("/assets/js/moment.min.js"); ?>"></script>
     <script src="<?= theme("/assets/js/Chart.min.js"); ?>"></script>
+    <script src="<?= theme("/assets/js/scripts.js"); ?>"></script>
     <?php if ($v->section("script")): ?>
         <?= $v->section("script"); ?>
     <?php else: ?>

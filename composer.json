@@ -17,8 +17,8 @@
             "PaginaEmConstrucao\\": "src/"
         },
         "files": [
-            "src/boot/config.php",
-            "src/boot/helpers.php"
+            "src/Boot/config.php",
+            "src/Support/helpers.php"
         ]
     },
     "minimum-stability": "stable",

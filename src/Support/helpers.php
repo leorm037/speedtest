@@ -70,3 +70,7 @@ function theme(string $path = null): string
     }
     return CONF_URL_BASE . "/themes/" . CONF_VIEW_THEME;
 }
+
+function url_back(): string {
+    return filter_id(INPUT_SERVER, "HTTP_REFERER") ?? url();
+}

@@ -13,6 +13,7 @@ $router = new Router(url(), ":");
 $router->namespace("PaginaEmConstrucao\Controller");
 $router->get("/", "Web:days");
 $router->get("/dias/{days}", "Web:days");
+$router->get("/medir", "Web:measure");
 
 $router->namespace("PaginaEmConstrucao\Controller")->group("/json");
 $router->post("/dias/{days}", "Json:days");
