@@ -17,19 +17,50 @@ class Json
         } else {
             $speedtests = (new Speedtest())->readLastDays();
         }
-
-        header('Content-Type: application/json');
         
-        $data = [];
+        $json = [];
 
         foreach ($speedtests as $speedtest) {
             $timestamp = $speedtest->timestamp;
             $download = (float) $speedtest->download;
             $upload = (float) $speedtest->upload;
-            $data[] = array($timestamp, $download, $upload);
+            $json[] = array($timestamp, $download, $upload);
         }
         
-        echo json_encode($data);
+        header('Content-Type: application/json');
+        echo json_encode($json);
     }
+    
+    /** @return void */
+    public function statistics(): void {
+        $json = [];
 
+        $statistics = (new Speedtest())->statistics();
+        
+        $sumReg = 0;
+
+        for ($i = 0;$i <= 9;$i++) {
+            $reg = $statistics[$i]['reg']; 
+            
+            if(isset($reg)){
+                $json['qtd'][] = (float)$reg;
+                $sumReg += $reg;
+            } else {
+                $json['qtd'][] = 0;
+            }
+        }
+        
+        for ($i = 0;$i <= 9;$i++) {
+            $reg = $statistics[$i]['reg']; 
+            
+            if(isset($reg)){
+                $json['percent'][] = round($reg * 100 / $sumReg, 2);
+            } else {
+                $json['percent'][] = 0;
+            }
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($json);
+    }
 }

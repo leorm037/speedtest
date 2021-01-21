@@ -43,6 +43,10 @@ class Web extends Controller
             redirect("/error/401");
         }
     }
+    
+    public function statistics(): void {
+        echo $this->view->render("statistics", []);
+    }
 
     /**
      * 

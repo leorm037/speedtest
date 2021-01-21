@@ -22,7 +22,7 @@
                 </a>
                 <nav class="header_nav">
                     <ul>
-                        <li><a onclick="return false;" id="measure" href="<?= url("medir"); ?>">medir agora</a></li>
+                        <li><a onclick="return false;" id="measure" href="<?= url("medir"); ?>">Medir agora</a></li>
                         <li><a href="<?= url(); ?>">1 dia</a></li>
                         <li><a href="<?= url("dias/3"); ?>">3 dia</a></li>
                         <li><a href="<?= url("dias/7"); ?>">1 semana</a></li>
@@ -30,17 +30,13 @@
                         <li><a href="<?= url("dias/90"); ?>">3 meses</a></li>
                         <li><a href="<?= url("dias/90"); ?>">6 meses</a></li>
                         <li><a href="<?= url("dias/365"); ?>">1 ano</a></li>
+                        <li><a href="<?= url("estatisticas"); ?>">Estatísticas</a></li>
                     </ul>
                 </nav>
             </div>
         </header>
         <main class="main">
-            <div class="main_content">
-                <?= $v->section("content") ?>
-            </div>
-            <div class="main_graph">
-                <canvas id="graphCanvas"></canvas>
-            </div>
+            <?= $v->section("content") ?>
         </div>
     </main>
     <footer class="footer">            

@@ -16,11 +16,11 @@ $(function () {
     });
 });
 
-setTimeout(function(){
+setInterval(function(){
    var d = new Date();
+   var MinSeg = d.getMinutes().toString().padStart(2,"0")+":"+d.getSeconds().toString().padStart(2,"0");
    
-   if(d.getMinutes() == 0) {
+   if(MinSeg == "01:00") {
        location.reload();
    }
 }, 1000);
-

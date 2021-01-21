@@ -22,7 +22,7 @@ class Speedtest extends Model
      * @param float $upload
      * @param string $share
      * @param string $ipaddress
-     * @return User
+     * @return Speedtest
      */
     public function boot (string $sponsor, string $servername, int $timestamp, float $distance, float $ping, float $download, float $upload, string $share, string $ipaddress): Speedtest {
         $this->sponsor = $sponsor;
@@ -47,10 +47,21 @@ class Speedtest extends Model
      * SELECT CONVERT_TZ(timestamp,'+00:00','-03:00') as timestamp, download, upload FROM speedtest where timestamp <= DATE_SUB(NOW(), INTERVAL 1 DAY) ORDER BY timestamp DESC
      * @param int $days
      * @param string $columns
-     * @return type
+     * @return \stdClass|mixed
      */
     public function readLastDays(int $days = 1, string $columns="*") {
         $readLastDays = $this->find("CONVERT_TZ(timestamp,'+00:00','-03:00') as timestamp, download, upload", "timestamp >= DATE_SUB(NOW(), INTERVAL :days DAY)", "days={$days}");
         return $readLastDays->fetch(true);
+    }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function statistics() {
+        $statistics = parent::find("COUNT(*) as reg")
+                ->groupBy("ROUND(download/10000000,0)")
+                ->orderBy("ROUND(download/10000000,0) DESC");
+        return $statistics->fetch(true, true);
     }
 }

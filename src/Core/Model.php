@@ -24,6 +24,9 @@ class Model
 
     /** @var string */
     private $order;
+    
+    /** @var string */
+    private $groupBy;
 
     /** @var int */
     protected $limit;
@@ -113,7 +116,7 @@ class Model
             return $this;
         }
 
-        $this->query = "SELECT {$columns} . FROM " . static::$entity;
+        $this->query = "SELECT {$columns} FROM " . static::$entity;
         return $this;
     }
 
@@ -147,16 +150,21 @@ class Model
     /**
      * 
      * @param bool $all
+     * @param bool $arrayResult
      * @return null|array|mixed|Model
      */
-    public function fetch(bool $all = false)
+    public function fetch(bool $all = false, bool $arrayResult = false)
     {
         try {
-            $stmt = Connection::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+            $stmt = Connection::getInstance()->prepare($this->query . $this->groupBy . $this->order . $this->limit . $this->offset);
             $stmt->execute($this->params);
             
             if (!$stmt->rowCount()) {
                 return null;
+            }
+            
+            if($arrayResult) {
+                return $stmt->fetchAll(\PDO::FETCH_ASSOC);
             }
             
             if($all) {
@@ -182,6 +190,11 @@ class Model
         $stmt = Connection::getInstance()->prepare($this->query);
         $stmt->execute($this->params);
         return $stmt->rowCount();
+    }
+    
+    public function groupBy(string $groupBy): Model {
+        $this->groupBy = " GROUP BY {$groupBy} ";
+        return $this;
     }
 
 }
