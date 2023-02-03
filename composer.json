@@ -1,8 +1,18 @@
 {
+    "name": "leorm037/speedtest",
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
+    "description": "",
     "minimum-stability": "stable",
     "prefer-stable": true,
+    "version": "0.1.0-dev",
+    "authors": [
+        {
+            "name": "Leonardo Rodrigues Marques",
+            "email": "leonardo@paginaemconstrucao.com.br",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": ">=8.1",
         "ext-ctype": "*",
@@ -69,6 +79,9 @@
         "symfony/polyfill-php81": "*"
     },
     "scripts": {
+        "pre-command-run": [
+            "@php bin/speedtest-output"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
@@ -78,7 +91,8 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "code-analyse": "phpstan analyse -c phpstan.neon -l 6 --ansi src"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -91,6 +105,8 @@
         }
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.14",
+        "phpstan/phpstan": "^1.9",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "6.2.*",
         "symfony/css-selector": "6.2.*",
