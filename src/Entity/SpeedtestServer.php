@@ -3,19 +3,21 @@
 namespace App\Entity;
 
 use App\Repository\SpeedtestServerRepository;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SpeedtestServerRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class SpeedtestServer
+class SpeedtestServer extends AbstractEntity
 {
     #[ORM\Id]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $datetime = null;
+    private ?DateTimeImmutable $datetime = null;
 
     #[ORM\Column(length: 60)]
     private ?string $host = null;
@@ -36,10 +38,10 @@ class SpeedtestServer
     private ?bool $selected = null;
 
     #[ORM\Column]
-    protected ?\DateTimeImmutable $createdAt = null;
+    protected ?DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    protected ?\DateTimeInterface $updatedAt = null;
+    protected ?DateTimeInterface $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -53,12 +55,12 @@ class SpeedtestServer
         return $this;
     }
 
-    public function getDatetime(): ?\DateTimeImmutable
+    public function getDatetime(): ?DateTimeImmutable
     {
         return $this->datetime;
     }
 
-    public function setDatetime(\DateTimeImmutable $datetime): self
+    public function setDatetime(DateTimeImmutable $datetime): self
     {
         $this->datetime = $datetime;
 
@@ -137,12 +139,12 @@ class SpeedtestServer
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }

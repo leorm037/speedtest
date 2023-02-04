@@ -15,7 +15,7 @@ class SpeedtestServerFactory
 
         return $speedtestServer
                         ->setDatetime(new DateTimeImmutable())
-                        ->set($server->id)
+                        ->setId($server->id)
                         ->setHost($server->host)
                         ->setPort($server->port)
                         ->setName($server->name)
