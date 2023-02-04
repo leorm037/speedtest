@@ -16,6 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SpeedtestServerRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, SpeedtestServer::class);
@@ -39,6 +40,30 @@ class SpeedtestServerRepository extends ServiceEntityRepository
         }
     }
 
+    public function findById(int $id): ?SpeedtestServer
+    {
+        return $this->createQueryBuilder('ss')
+                        ->where('ss.id = :id')
+                        ->setParameter('id', $id)
+                        ->setMaxResults(1)
+                        ->getQuery()
+                        ->getOneOrNullResult()
+        ;
+    }
+
+    public function exist(int $id): bool
+    {
+        $count = $this->createQueryBuilder('ss')
+                ->select('COUNT(ss.id)')
+                ->where('ss.id = :id')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->getSingleScalarResult()
+        ;
+
+        return ($count > 0) ? true : false;
+    }
+
 //    /**
 //     * @return SpeedtestServer[] Returns an array of SpeedtestServer objects
 //     */
@@ -53,7 +78,6 @@ class SpeedtestServerRepository extends ServiceEntityRepository
 //            ->getResult()
 //        ;
 //    }
-
 //    public function findOneBySomeField($value): ?SpeedtestServer
 //    {
 //        return $this->createQueryBuilder('s')
