@@ -122,7 +122,7 @@ class Speedtest extends AbstractEntity
 
     public function getDownloadBandwidth(): ?int
     {
-        return $this->donwloadBandwidth;
+        return $this->downloadBandwidth;
     }
 
     public function setDownloadBandwidth(?int $downloadBandwidth): self
