@@ -1,17 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block breadcrumb %}
     <li class="breadcrumb-item active" aria-current="page">{{ days|default(1) }} {{ 'day'|trans({},'label') }}</li>
-{% endblock %}
-{% block title_body %}
+    {% endblock %}
+    {% block title_body %}
     <i class="bi bi-graph-up"></i> Gráfico
 {% endblock %}
 {% block body %}
     <div class="card-body">
         <p>Paragrafo 1</p>
-        <p>Paragrafo 2</p>
-        <p>Paragrafo 3</p>
-        <p>Paragrafo 4</p>
-        <p>Paragrafo 5</p>
-        <p>Paragrafo 6</p>
     </div>
+{% endblock %}
+{% block javascripts_footer %}
+    {{ parent() }}
+    <script src="{{ asset('chart.js', 'chartjs') }}"></script>
 {% endblock %}

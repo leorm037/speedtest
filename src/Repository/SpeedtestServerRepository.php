@@ -64,6 +64,16 @@ class SpeedtestServerRepository extends ServiceEntityRepository
         return ($count > 0) ? true : false;
     }
 
+    public function speedtestServerSelected(): ?SpeedtestServer
+    {
+        return $this->createQueryBuilder('ss')
+                        ->where('ss.selected = :selected')
+                        ->setParameter('selected', true)
+                        ->setMaxResults(1)
+                        ->getQuery()
+                        ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return SpeedtestServer[] Returns an array of SpeedtestServer objects
 //     */

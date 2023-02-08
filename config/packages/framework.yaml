@@ -8,7 +8,9 @@ framework:
             bootstrap_icon:
                 base_path: '/bootstrap-icons-1.10.3'
             jquery:
-                base_path: 'jquery-3.6.3'
+                base_path: '/jquery-3.6.3'
+            chartjs:
+                base_path: '/chart.js-4.2.0'
 
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
