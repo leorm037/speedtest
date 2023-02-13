@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Entity\SpeedtestServer;
+use App\Entity\Speedtest;
 use App\Factory\SpeedtestFactory;
 use App\Repository\SpeedtestRepository;
 use App\Repository\SpeedtestServerRepository;
@@ -56,6 +56,11 @@ class SpeedtestRegisterCommand extends Command
         }
 
         $result = json_decode($json);
+        
+        if ("result" !== $result->type) {
+            $this->logger->error($json);
+            return Command::FAILURE;
+        }
 
         $speedtest = SpeedtestFactory::build($result);
 

@@ -42,9 +42,6 @@ class Speedtest extends AbstractEntity
     #[ORM\Column(nullable: true)]
     private ?int $uploadElapsed = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $packetLoss = null;
-
     #[ORM\Column(length: 60, nullable: true)]
     private ?string $isp = null;
 
@@ -78,6 +75,9 @@ class Speedtest extends AbstractEntity
     #[ORM\ManyToOne(fetch: "EAGER")]
     #[ORM\JoinColumn(nullable: true)]
     private ?SpeedtestServer $speedtestServer = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 20, scale: 2, nullable: true)]
+    private ?string $packetLoss = null;
 
     public function getId(): ?int
     {
@@ -188,18 +188,6 @@ class Speedtest extends AbstractEntity
     public function setUploadElapsed(?int $uploadElapsed): self
     {
         $this->uploadElapsed = $uploadElapsed;
-
-        return $this;
-    }
-
-    public function getPacketLoss(): ?int
-    {
-        return $this->packetLoss;
-    }
-
-    public function setPacketLoss(?int $packetLoss): self
-    {
-        $this->packetLoss = $packetLoss;
 
         return $this;
     }
@@ -332,6 +320,18 @@ class Speedtest extends AbstractEntity
     public function setSpeedtestServer(?SpeedtestServer $speedtestServer): self
     {
         $this->speedtestServer = $speedtestServer;
+
+        return $this;
+    }
+
+    public function getPacketLoss(): ?string
+    {
+        return $this->packetLoss;
+    }
+
+    public function setPacketLoss(?string $packetLoss): self
+    {
+        $this->packetLoss = $packetLoss;
 
         return $this;
     }
