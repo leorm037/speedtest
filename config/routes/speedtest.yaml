@@ -13,3 +13,10 @@ app_speedtest_days:
         _locale: pt_BR
     requirements:
         _locale: en|pt_BR
+
+app_speedtest_json_days:
+    path: /json/days/{days}
+    controller: App\Controller\SpeedtestController::jsonDays
+    methods: GET
+    defaults: 
+        days: 1

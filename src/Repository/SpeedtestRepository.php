@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Speedtest;
+use DateInterval;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,6 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SpeedtestRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Speedtest::class);
@@ -39,6 +42,33 @@ class SpeedtestRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByDays(int $days)
+    {
+         $date = new DateTime();
+        $date->sub(DateInterval::createFromDateString("{$days} day"));
+        $dateFormat = $date->format('Y-m-d H:i:s');
+
+        return $this->createQueryBuilder('s')
+                        ->select('s.id, s.datetime, s.downloadBandwidth, s.uploadBandwidth')
+                        ->andWhere('s.datetime >= :date')
+                        ->setParameter('date', $dateFormat)
+                        ->orderBy('s.datetime', 'DESC')
+                        ->getQuery()
+                        ->getResult()
+        ;
+    }
+    
+    public function findByDateTime(DateTime $dateTime): ?Speedtest
+    {
+        return $this->createQueryBuilder('s')
+                        ->where('s.datetime = :date')
+                        ->setParameter('date', $dateTime->format('Y-m-d H:i:s'))
+                        ->setMaxResults(1)
+                        ->getQuery()
+                        ->getOneOrNullResult()
+        ;
+    }
+
 //    /**
 //     * @return Speedtest[] Returns an array of Speedtest objects
 //     */
@@ -53,7 +83,6 @@ class SpeedtestRepository extends ServiceEntityRepository
 //            ->getResult()
 //        ;
 //    }
-
 //    public function findOneBySomeField($value): ?Speedtest
 //    {
 //        return $this->createQueryBuilder('s')

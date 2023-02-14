@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SpeedtestRepository;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,13 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Speedtest extends AbstractEntity
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $datetime = null;
+    private ?DateTimeImmutable $datetime = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 20, scale: 16, nullable: true)]
     private ?string $pingJitter = null;
@@ -84,12 +86,12 @@ class Speedtest extends AbstractEntity
         return $this->id;
     }
 
-    public function getDatetime(): ?\DateTimeImmutable
+    public function getDatetime(): ?DateTimeImmutable
     {
         return $this->datetime;
     }
 
-    public function setDatetime(\DateTimeImmutable $datetime): self
+    public function setDatetime(DateTimeImmutable $datetime): self
     {
         $this->datetime = $datetime;
 
@@ -335,4 +337,10 @@ class Speedtest extends AbstractEntity
 
         return $this;
     }
+
+    public function toArray(): array
+    {
+        return call_user_func('get_object_vars', $this);
+    }
+
 }
