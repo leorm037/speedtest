@@ -16,7 +16,7 @@
     </head>
     <body>
         <header class="mb-2">
-            <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-success">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-success">
                 <div class="container-fluid">
                     <a class="navbar-brand text-decoration-none" href="{{ path('app_speedtest_index') }}">
                         <i class="bi bi-speedometer2"></i> Speedtest
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </nav>
-            <nav aria-label="breadcrumb" class=" sticky-top bg-success-subtle shadow border-bottom border-success" style="--bs-breadcrumb-divider: '>';">
+            <nav aria-label="breadcrumb" class="bg-success-subtle shadow border-bottom border-success" style="--bs-breadcrumb-divider: '>';">
                 <ol class="breadcrumb m-0 p-2">
                     <li class="breadcrumb-item"><a href="{{ path('app_speedtest_index') }}" class="text-decoration-none"><i class="bi bi-house"></i> {{ 'home'|trans({},'label') }}</li></a>
                         {% block breadcrumb %}{% endblock %}
@@ -79,7 +79,9 @@
         </footer>
         {% block javascripts_footer %}
             <script src="{{ asset('jquery.min.js', 'jquery') }}"></script>
+            <script src="{{ asset('loadingoverlay.min.js', 'loading') }}"></script>
             <script src="{{ asset('js/bootstrap.bundle.min.js', 'bootstrap') }}"></script>
+            <script src="{{ asset('js/app.js') }}"></script>
         {% endblock %}
     </body>
 </html>

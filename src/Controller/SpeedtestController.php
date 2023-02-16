@@ -32,8 +32,8 @@ class SpeedtestController extends AbstractController
     public function jsonDays(int $days): JsonResponse
     {
         return $this->json([
-                    'message' => 'sucess',
-                    'list' => $this->speedtestRepository->findByDays($days)
+                    'message' => 'success',
+                    'result' => $this->speedtestRepository->findByDays($days)
         ]);
     }
 

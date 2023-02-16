@@ -10,7 +10,9 @@ framework:
             jquery:
                 base_path: '/jquery-3.6.3'
             chartjs:
-                base_path: '/chart.js-4.2.0'
+                base_path: '/chart.js-4.2.1'
+            loading:
+                base_path: '/jquery-loading-overlay-2.1.7/dist'
 
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true

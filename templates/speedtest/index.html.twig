@@ -1,3 +1,4 @@
+{# templates/speedtest/index.html.twig #}
 {% extends 'base.html.twig' %}
 {% block breadcrumb %}
     <li class="breadcrumb-item active" aria-current="page">{{ days|default(1) }} {{ 'day'|trans({},'label') }}</li>
@@ -7,10 +8,23 @@
 {% endblock %}
 {% block body %}
     <div class="card-body">
-        <p>Paragrafo 1</p>
+        <div class="row">
+            <div class="col-12">
+                <canvas height="100vh" id="speedtest"></canvas>
+            </div>
+        </div>
     </div>
+    {% include 'speedtest/_modalDetail.html.twig' %}
 {% endblock %}
 {% block javascripts_footer %}
     {{ parent() }}
-    <script src="{{ asset('chart.js', 'chartjs') }}"></script>
+    <script type="module" src="{{ asset('dist/chart.umd.js', 'chartjs') }}"></script>
+    <script src="{{ asset('js/speedtest/index.js') }}"></script>
+    <script>
+        const LOCALE = '{{ app.request.locale|replace({'_':'-'}) }}';
+        const STEPSPEEDMBPS = 30;
+        const MAXSPEEDDOWNLOADMBPS = 750;
+        const MAXSPEEDUPLOADMBPS = 90;
+        graphicShow("{{ url('app_speedtest_json_days', {'days': 1000}) }}");
+    </script>
 {% endblock %}
