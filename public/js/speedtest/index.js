@@ -4,9 +4,7 @@ function graphicConstruct(speedtests) {
     var uploadBandwidth = [];
 
     Array.from(speedtests.result).reverse().map(speed => {
-        console.log(speed);
-        
-        let data = new Date(speed.datetime.date);
+        let data = new Date(speed.datetime);
         labels.push(data.toLocaleDateString() + " " + data.toLocaleTimeString());
         downloadBandwidth.push(parseFloat(speed.downloadBandwidth * 8 / 1048576).toFixed());
         uploadBandwidth.push(parseFloat(speed.uploadBandwidth * 8 / 1048576).toFixed());
@@ -75,7 +73,8 @@ function graphicConstruct(speedtests) {
                                         d.getFullYear() + " " +
                                         d.getHours().toString().padStart(2, '0') + ":" +
                                         d.getMinutes().toString().padStart(2, '0') + ":" +
-                                        d.getSeconds());                                                                                                        //01
+                                        d.getSeconds()
+                                );                                                                                                        //01
                                 modalPingJitter = $('#modalPingJitter').text(parseFloat(data.speedtest.pingJitter).toLocaleString(LOCALE) + " ms");              //02
                                 modalPingLatency = $('#modalPingLatency').text(parseFloat(data.speedtest.pingLatency).toLocaleString(LOCALE) + " ms");           //03
                                 modalDownloadBandwidth = $('#modalDownloadBandwidth').text(parseFloat(data.speedtest.downloadBandwidth * 8 / 1048576).toLocaleString(LOCALE) + " Mbps");                      //04
