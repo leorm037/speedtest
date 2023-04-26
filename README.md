@@ -51,6 +51,11 @@ sudo apt install speedtest
 sudo speedtest
 ```
 
+### Tradução
+```
+php bin/console translation:extract --force --dump-messages --format=yaml --sort=asc pt_BR
+```
+
 ### Gráfico Speedtest
 
 https://github.com/leorm037/speedtest

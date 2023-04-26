@@ -1,6 +1,15 @@
+btn.reset: Limpar
+btn.save: Salvar
 day: dia
 days: dias
+email.confirm: 'Confirmação do e-mail'
+email: E-mail
 home: 'Página Inicial'
-version: Versão
-lalbel.detail: Detalhar
 label.close: Fechar
+lalbel.detail: Detalhar
+name.complete: 'Nome completo'
+name: Nome
+password.confirm: 'Confirmação de senha'
+password: Senha
+register: 'Cadastro de novo usuário'
+version: Versão

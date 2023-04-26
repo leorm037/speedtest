@@ -2,15 +2,15 @@
 {% extends 'base.html.twig' %}
 {% block breadcrumb %}
     <li class="breadcrumb-item active" aria-current="page">{{ days|default(1) }} {{ 'day'|trans({},'label') }}</li>
-    {% endblock %}
-    {% block title_body %}
-    <i class="bi bi-graph-up"></i> Gráfico
 {% endblock %}
 {% block body %}
-    <div class="card-body">
-        <div class="row">   
-            <div class="col-12">
-                <canvas height="100vh" id="speedtest"></canvas>
+    <div class="card shadow">
+        <div class="card-body">
+            <h1 class="h5 card-title border-bottom pb-2"><i class="bi bi-graph-up"></i> Gráfico</h1>
+            <div class="row">   
+                <div class="col-12">
+                    <canvas height="100vh" id="speedtest"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -25,6 +25,6 @@
         const STEPSPEEDMBPS = 30;
         const MAXSPEEDDOWNLOADMBPS = 750;
         const MAXSPEEDUPLOADMBPS = 90;
-        graphicShow("{{ url('app_speedtest_json_days', {'days': 1000}) }}");
+        graphicShow("{{ url('app_speedtest_json_days', {'days': days}) }}");
     </script>
 {% endblock %}

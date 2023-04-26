@@ -19,7 +19,7 @@ class SpeedtestController extends AbstractController
 
     public function index(): Response
     {
-        return $this->render('speedtest/index.html.twig');
+        return $this->days(1);
     }
 
     public function days(int $days): Response

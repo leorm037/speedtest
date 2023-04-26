@@ -56,16 +56,9 @@
             </nav>
         </header>
         <main class="mb-3">
+            {% include '_flash.html.twig' %}
             <div class="container-fluid">
-                <div class="card">
-                    <div class="card-header">
-                        <h1 class="card-title h4 m-0">
-                            {% block title_body %}{% endblock %}
-                        </h1>
-                    </div>
-                    {% block body %}{% endblock %}
-                </div>
-
+                {% block body %}{% endblock %}
             </div>
         </main>
         <footer class="mt-auto">
@@ -78,10 +71,15 @@
             </nav>
         </footer>
         {% block javascripts_footer %}
+            
             <script src="{{ asset('jquery.min.js', 'jquery') }}"></script>
             <script src="{{ asset('loadingoverlay.min.js', 'loading') }}"></script>
             <script src="{{ asset('js/bootstrap.bundle.min.js', 'bootstrap') }}"></script>
             <script src="{{ asset('js/app.js') }}"></script>
+            <script>
+                const LOADING_MESSAGE="{{ 'message.loading'|trans }}";                
+            </script>
+            
         {% endblock %}
     </body>
 </html>
