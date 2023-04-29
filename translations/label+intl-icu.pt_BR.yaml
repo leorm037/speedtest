@@ -1,5 +1,6 @@
 btn.reset: Limpar
 btn.save: Salvar
+btn.login: Entrar
 day: dia
 days: dias
 email.confirm: 'Confirmação do e-mail'
@@ -13,3 +14,4 @@ password.confirm: 'Confirmação de senha'
 password: Senha
 register: 'Cadastro de novo usuário'
 version: Versão
+login: Entrar

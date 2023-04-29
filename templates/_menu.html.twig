@@ -1,0 +1,35 @@
+{# templates/_menu.html.twig #}
+<div class="collapse navbar-collapse" id="navbarMenu">
+    <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+            <a class="nav-link{% if app.request.get('_route') starts with 'app_speedtest_days' and app.request.get('days') == 1 %} active{% endif %}" href="{{ path('app_speedtest_days', {'days': 1}) }}">1 {{ 'day'|trans({},'label') }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link{% if app.request.get('_route') starts with 'app_speedtest_days' and app.request.get('days') == 2 %} active{% endif %}" href="{{ path('app_speedtest_days', {'days': 2}) }}">2 {{ 'days'|trans({},'label') }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link{% if app.request.get('_route') starts with 'app_speedtest_days' and app.request.get('days') == 3 %} active{% endif %}" href="{{ path('app_speedtest_days', {'days': 3}) }}">3 {{ 'days'|trans({},'label') }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link{% if app.request.get('_route') starts with 'app_speedtest_days' and app.request.get('days') == 7 %} active{% endif %}" href="{{ path('app_speedtest_days', {'days': 7}) }}">7 {{ 'days'|trans({},'label') }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link{% if app.request.get('_route') starts with 'app_speedtest_days' and app.request.get('days') == 31 %} active{% endif %}" href="{{ path('app_speedtest_days', {'days': 31}) }}">31 {{ 'days'|trans({},'label') }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link{% if app.request.get('_route') starts with 'app_speedtest_days' and app.request.get('days') == 365 %} active{% endif %}" href="{{ path('app_speedtest_days', {'days': 365}) }}">365 {{ 'days'|trans({},'label') }}</a>
+        </li>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">{{ app.user.name }}</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link{% if app.request.get('_route') starts with 'app_login' %} active{% endif %}" href="{{ path('app_login') }}"><i class="bi bi-door-open"></i> <span class="d-none d-xl-inline-block">{{ 'login'|trans({},'label') }}</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link{% if app.request.get('_route') starts with 'app_register' %} active{% endif %}" href="{{ path('app_register') }}"><i class="bi bi-person-plus"></i> <span class="d-none d-xl-inline-block">{{ 'register'|trans({},'label') }}</span></a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
