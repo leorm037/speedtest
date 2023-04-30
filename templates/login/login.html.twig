@@ -3,16 +3,17 @@
 {% block title %}{{ parent() }} :: Login{% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item active"><i class="bi bi-door-open"></i> {{ 'login'|trans([],'label') }}</li>
-    {% endblock %}
+    <li class="breadcrumb-item active"><i class="bi bi-door-closed"></i> {{ 'login'|trans([],'label') }}</li>
+{% endblock %}
 
 {% block body %}
     <form action="{{ path('app_login') }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <div class="row justify-content-md-center">
             <div class="col col-lg-6">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h1 class="card-title border-bottom pb-2"><i class="bi bi-door-open"></i> {{ 'login'|trans([], 'label') }}</h1>
+                        <h1 class="card-title border-bottom pb-2"><i class="bi bi-door-closed"></i> {{ 'login'|trans([], 'label') }}</h1>
                         <div class="mb-3">
                             <label for="username" class="form-label" aria-label="{{ 'email'|trans({}, 'label') }}">{{ 'email'|trans({}, 'label') }}</label>
                             <input type="email" class="form-control" placeholder="name@email.com" id="username" name="_username" value="{{ last_username }}" autocomplete="username">

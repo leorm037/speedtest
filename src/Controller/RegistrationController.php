@@ -13,17 +13,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
+    private TranslatorInterface $translator;
 
-    public function __construct(EmailVerifier $emailVerifier)
-    {
+    public function __construct(
+            EmailVerifier $emailVerifier,
+            TranslatorInterface $translator
+    ) {
         $this->emailVerifier = $emailVerifier;
+        $this->translator = $translator;
     }
 
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
@@ -86,8 +89,8 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', $this->translator->trans('Your email address has been verified.'));
 
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('app_speedtest_index');
     }
 }
