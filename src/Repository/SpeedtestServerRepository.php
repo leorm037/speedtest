@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\SpeedtestServer;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -29,6 +30,39 @@ class SpeedtestServerRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function saveSelected(int $id, User $user): ?SpeedtestServer
+    {
+        $speedtestServerSelected = $this->speedtestServerSelected();
+
+        $speedtestServer = $this->findById($id);
+
+        if (null !== $speedtestServerSelected && false === $speedtestServer->isSelected()) {
+            $speedtestServerSelected->setSelected(false);
+            $speedtestServerSelected->setUpdatedUser($user);
+            $this->save($speedtestServerSelected, true);
+        }
+
+        if (false === $speedtestServer->isSelected()) {
+            $speedtestServer->setSelected(true);
+            $speedtestServer->setUpdatedUser($user);
+            $this->save($speedtestServer, true);
+        }
+        
+        return $speedtestServer;
+    }
+
+    /**
+     * 
+     * @return SpeedtestServer[]
+     */
+    public function list()
+    {
+        return $this->createQueryBuilder('ss')
+                        ->orderBy('ss.name', 'ASC')
+                        ->getQuery()
+                        ->getResult();
     }
 
     public function remove(SpeedtestServer $entity, bool $flush = false): void
@@ -61,7 +95,7 @@ class SpeedtestServerRepository extends ServiceEntityRepository
                 ->getSingleScalarResult()
         ;
 
-        return ($count > 0) ? true : false;
+        return ($count === 1) ? true : false;
     }
 
     public function speedtestServerSelected(): ?SpeedtestServer

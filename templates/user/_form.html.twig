@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+    <div class="card shadow">
+        <div class="card-body">
+            <h1 class="card-title border-bottom pb-2"><i class="bi bi-person-gear"></i> {{ 'user'|trans([], 'label') }}</h1>
+            {{ form_row(form) }}
+        </div>
+        <div class="card-footer text-end">
+            <button type="submit" data-loading="none" class="btn btn-primary btn-sm">{{ 'btn.save'|trans([], 'label') }}</button>
+            <button type="reset" class="btn btn-secondary btn-sm">{{ 'btn.reset'|trans([], 'label') }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

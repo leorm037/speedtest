@@ -21,9 +21,11 @@
         </li>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-rolodex"></i></a>
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-rolodex"></i> {{ app.user.email }}</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Alterar</a></li>
+                    <li><a class="dropdown-item" href="{{ path('app_user_edit') }}"><i class="bi bi-person-gear"></i> Alterar</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{ path('app_speedtest_server_index') }}"><i class="bi bi-hdd"></i> Speedtest Server</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{{ path('app_logout') }}"><i class="bi bi-door-open"></i> {{ 'logout'|trans({},'label') }}</a>
                 </ul>

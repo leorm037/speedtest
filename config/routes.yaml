@@ -5,7 +5,16 @@
 #    type: attribute
 
 app_speedtest_controller:
-    resource: "routes/speedtest.yaml"
+    resource: "routes/controller_speedtest.yaml"
+    
+app_speedtest_server_controller:
+    resource: "routes/controller_speedtest_server.yaml"
 
 app_registration_controller:
-    resource: "routes/registration.yaml"
+    resource: "routes/controller_registration.yaml"
+
+app_login_controller:
+    resource: "routes/controller_login.yaml"
+
+app_user_controller:
+    resource: "routes/controller_user.yaml"

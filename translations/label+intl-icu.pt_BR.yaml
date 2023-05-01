@@ -16,3 +16,11 @@ register: 'Cadastro de novo usuário'
 version: Versão
 login: Entrar
 logout: Sair
+user: Usuário
+close: Fechar
+actions: Ações
+updated: Atualizado
+country: País
+location: Localização
+host: Host
+port: Porta

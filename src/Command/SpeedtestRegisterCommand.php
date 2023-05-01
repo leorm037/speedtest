@@ -20,7 +20,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class SpeedtestRegisterCommand extends Command
 {
 
-    private const SPEEDTEST_COMMAND = '/usr/bin/speedtest -f json';
+    private const SPEEDTEST_COMMAND = '/usr/bin/speedtest --format=json';
 
     private SpeedtestServerRepository $speedtestServerRepository;
     private SpeedtestRepository $speedtestRepository;

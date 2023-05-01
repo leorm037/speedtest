@@ -43,6 +43,9 @@ class SpeedtestServer extends AbstractEntity
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     protected ?DateTimeInterface $updatedAt = null;
 
+    #[ORM\ManyToOne]
+    private ?User $updatedUser = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -147,5 +150,17 @@ class SpeedtestServer extends AbstractEntity
     public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    public function getUpdatedUser(): ?User
+    {
+        return $this->updatedUser;
+    }
+
+    public function setUpdatedUser(?User $updatedUser): self
+    {
+        $this->updatedUser = $updatedUser;
+
+        return $this;
     }
 }

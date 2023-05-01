@@ -1,7 +1,12 @@
+$.LoadingOverlaySetup({
+    background: "rgba(218, 223, 225, 0.8)",
+    fontawesome: "bi bi-cup-hot-fill",
+    image: "",
+    fontawesomeAnimation: "2000ms pulse",
+    fontawesomeAutoResize: true,
+});
+
 $(document).ajaxStart(function () {
-    $.LoadingOverlaySetup({
-        background: "rgba(218, 223, 225, 0.8)"
-    });
     $.LoadingOverlay("show");
 });
 
@@ -9,19 +14,8 @@ $(document).ajaxStop(function () {
     $.LoadingOverlay("hide");
 });
 
-$.Loading.setDefaults({
-    message: LOADING_MESSAGE,
-    stoppable: false,
-    onStart: function (loading) {
-        loading.overlay.slideDown(400);
-    },
-    onStop: function (loading) {
-        loading.overlay.slideUp(400);
-    }
-});
-
 $('a[data-loading],button[data-loading]').each(function () {
     $(this).click(function () {
-        $('body').loading('start');
+        $.LoadingOverlay("show");
     });
 });
