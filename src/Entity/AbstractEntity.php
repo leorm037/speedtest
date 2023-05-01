@@ -5,18 +5,12 @@ namespace App\Entity;
 use App\Helper\DateTimeHelper;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Factory\UuidFactory;
+use Symfony\Component\Uid\Uuid;
 
 
 abstract class AbstractEntity
 {
 
-    private UuidFactory $uuidFactory;
-    
-    public function __construct(UuidFactory $uuidFactory)
-    {
-        $this->uuidFactory = $uuidFactory;
-    }
-    
     #[ORM\PrePersist]
     public function prePersist(): void
     {
@@ -47,7 +41,11 @@ abstract class AbstractEntity
     private function generateUuid(): void
     {
         if (property_exists(get_class($this), "uuid") && null === $this->uuid) {
-            $this->uuid = $this->uuidFactory->create();
+            
+            /** @var UuidFactory $uuidFactory */
+            $uuidFactory = Uuid::v7();
+            
+            $this->uuid = $uuidFactory->create();
         }
     }
 
