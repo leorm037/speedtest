@@ -32,24 +32,25 @@ class SpeedtestServerRepository extends ServiceEntityRepository
         }
     }
 
-    public function saveSelected(int $id, User $user): ?SpeedtestServer
+    public function saveSelected(int $id, bool $selected, User $user): ?SpeedtestServer
     {
         $speedtestServerSelected = $this->speedtestServerSelected();
 
-        $speedtestServer = $this->findById($id);
-
-        if (null !== $speedtestServerSelected && false === $speedtestServer->isSelected()) {
+        if (null !== $speedtestServerSelected) {
             $speedtestServerSelected->setSelected(false);
             $speedtestServerSelected->setUpdatedUser($user);
             $this->save($speedtestServerSelected, true);
+
+            if (false === $selected) {
+                return $speedtestServerSelected;
+            }
         }
 
-        if (false === $speedtestServer->isSelected()) {
-            $speedtestServer->setSelected(true);
-            $speedtestServer->setUpdatedUser($user);
-            $this->save($speedtestServer, true);
-        }
-        
+        $speedtestServer = $this->findById($id);
+        $speedtestServer->setSelected(true);
+        $speedtestServer->setUpdatedUser($user);
+        $this->save($speedtestServer, true);
+
         return $speedtestServer;
     }
 

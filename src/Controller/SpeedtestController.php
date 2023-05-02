@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Repository\SpeedtestRepository;
+use DateTime;
+use DateTimeZone;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function dd;
 
 class SpeedtestController extends AbstractController
 {
@@ -34,6 +38,19 @@ class SpeedtestController extends AbstractController
         return $this->json([
                     'message' => 'success',
                     'result' => $this->speedtestRepository->findByDays($days)
+        ]);
+    }
+
+    public function jsonDetail(Request $request): JsonResponse
+    {
+        $dateTimeString = $request->get('dateTime');
+        
+        $dateTime = DateTime::createFromFormat('d/m/Y H:i:s', $dateTimeString, new DateTimeZone('America/Sao_Paulo'));
+        $dateTime->setTimezone(new \DateTimeZone('UTC'));
+
+        return $this->json([
+                    'message' => 'success',
+                    'speedtest' => $this->speedtestRepository->findByDateTime($dateTime)
         ]);
     }
 

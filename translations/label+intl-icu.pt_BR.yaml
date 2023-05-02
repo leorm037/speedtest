@@ -24,3 +24,5 @@ country: País
 location: Localização
 host: Host
 port: Porta
+no: Não
+yes: Sim

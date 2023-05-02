@@ -65,7 +65,7 @@ function graphicConstruct(speedtests) {
                 $.post(URL_JSON_DETAIL, {dateTime: graphic.data.labels[element[0].index]})
                         .done(function (data) {
                             if (data.message === 'success') {
-                                let d = new Date(data.speedtest.dateTime.date);
+                                let d = new Date(data.speedtest.datetime);
 
                                 modalDateTime.text(
                                         d.getDay().toString().padStart(2, '0') + "/" +
@@ -91,13 +91,15 @@ function graphicConstruct(speedtests) {
                                 modalInterfaceVpn = $('#modalInterfaceVpn').text((data.speedtest.interfaceVpn) ? data.speedtest.interfaceVpn : LABEL_NO);       //15
                                 modalInterfaceExternalIp = $('#modalInterfaceExternalIp').text(data.speedtest.interfaceExternalIp);                             //16
                                 modalServerIp = $('#modalServerIp').text(data.speedtest.serverIp);                                                              //17
-                                modalServerName = $('#modalServerName').text(data.speedtestServer.name);                                                        //18
-                                modalServerLocation = $('#modalServerLocation').text(data.speedtestServer.location);                                            //19
-                                modalServerCountry = $('#modalServerCountry').text(data.speedtestServer.country);                                               //20
-                                modalServerSelected = $('#modalServerSelected').text((data.speedtestServer.selected) ? LABEL_YES : LABEL_NO);                   //21
+                                modalServerName = $('#modalServerName').text(data.speedtest.speedtestServer.name);                                                        //18
+                                modalServerLocation = $('#modalServerLocation').text(data.speedtest.speedtestServer.location);                                            //19
+                                modalServerCountry = $('#modalServerCountry').text(data.speedtest.speedtestServer.country);                                               //20
+                                modalServerSelected = $('#modalServerSelected').text((data.speedtest.speedtestServer.selected) ? LABEL_YES : LABEL_NO);                   //21
                                 modalResultUrl = $('#modalResultUrl').html("<a href='" + data.speedtest.resultUrl +
                                         "' target='_blank'><i class='bi bi-activity'></i> Speedtest report</a>");                                               //22
                             }
+                        }).fail(function(data,status,j){
+                            console.log(data,status,j);
                         });
             },
             scales: {

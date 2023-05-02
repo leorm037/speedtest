@@ -20,3 +20,8 @@ app_speedtest_json_days:
     methods: GET
     defaults: 
         days: 1
+
+app_speedtest_json_detail:
+    path: /json/detail
+    controller: App\Controller\SpeedtestController::jsonDetail
+    methods: POST

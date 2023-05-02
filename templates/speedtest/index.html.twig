@@ -22,9 +22,12 @@
     <script src="{{ asset('js/speedtest/index.js') }}"></script>
     <script>
         const LOCALE = '{{ app.request.locale|replace({'_':'-'}) }}';
+        const LABEL_NO = "{{ 'no'|trans([], 'label') }}";
+        const LABEL_YES = "{{ 'yes'|trans([], 'label') }}";
         const STEPSPEEDMBPS = 30;
         const MAXSPEEDDOWNLOADMBPS = 750;
         const MAXSPEEDUPLOADMBPS = 90;
+        const URL_JSON_DETAIL = "{{ url('app_speedtest_json_detail') }}";
         graphicShow("{{ url('app_speedtest_json_days', {'days': days}) }}");
     </script>
 {% endblock %}

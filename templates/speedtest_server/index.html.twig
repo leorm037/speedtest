@@ -65,14 +65,15 @@
         $('input[data-server]').each(function () {
             $(this).click(function () {
                 var id = $(this).attr('data-server');
+                var selected = $(this).prop("checked");
 
-                $.post("{{ path('app_speedtest_server_edit') }}", {id: id})
+                $.post("{{ path('app_speedtest_server_edit') }}", {id: id, select: selected})
                         .done(function (data, textStatus, jqXHR) {                            
                             $('input[data-server]').each(function(){
-                                $(this).prop( "checked", false );
+                                $(this).prop("checked", false );
                             });
                             
-                            $('#speedtestServer_' + id).prop( "checked", true );
+                            $('#speedtestServer_' + data).prop("checked", selected);
                         }).fail(function (data, textStatus, jqXHR) {
                             console.log(data);
                             console.log(textStatus);
