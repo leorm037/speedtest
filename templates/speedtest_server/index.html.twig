@@ -20,29 +20,31 @@
                             <th class="d-none d-xl-table-cell">{{ 'port'|trans([], 'label') }}</th>
                             <th class="d-none d-md-table-cell">{{ 'location'|trans([], 'label') }}</th>
                             <th class="d-none d-xl-table-cell">{{ 'country'|trans([], 'label') }}</th>
+                            <th class="d-none d-xl-table-cell">{{ 'records'|trans([], 'label') }}</th>
                             <th class="d-none d-xl-table-cell">{{ 'updated'|trans([], 'label') }}</th>
                             <th class="text-center">{{ 'actions'|trans([], 'label') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for speedtestServer in list %}
+                        {% for s in list %}
                             {% set lineNumber = (lineNumber|default(0)) + 1 %}
                             <tr>
                                 <td>{{ lineNumber }}</td>
-                                <td>{{ speedtestServer.name }}</td>
-                                <td class="d-none d-lg-table-cell">{{ speedtestServer.host }}</td>
-                                <td class="d-none d-xl-table-cell text-end">{{ speedtestServer.port }}</td>
-                                <td class="d-none d-md-table-cell">{{ speedtestServer.location }}</td>
-                                <td class="d-none d-xl-table-cell">{{ speedtestServer.country }}</td>
-                                <td class="d-none d-xl-table-cell text-end">{{ speedtestServer.updatedAt|default(speedtestServer.createdAt)|format_datetime('short', 'short', locale=app.request.locale|replace({'_': '-'})) }}</td>
+                                <td>{{ s.speedtestServer.name }}</td>
+                                <td class="d-none d-lg-table-cell">{{ s.speedtestServer.host }}</td>
+                                <td class="d-none d-xl-table-cell text-end">{{ s.speedtestServer.port }}</td>
+                                <td class="d-none d-md-table-cell">{{ s.speedtestServer.location }}</td>
+                                <td class="d-none d-xl-table-cell">{{ s.speedtestServer.country }}</td>
+                                <td class="d-none d-xl-table-cell text-end">{{ s.total|number_format(0, ',', '.') }}</td>
+                                <td class="d-none d-xl-table-cell text-end">{{ s.speedtestServer.updatedAt|default(s.speedtestServer.createdAt)|format_datetime('short', 'short', locale=app.request.locale|replace({'_': '-'})) }}</td>
                                 <td class="text-center">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input"
-                                               data-server="{{ speedtestServer.id }}"
+                                        <input class="form-check-input mx-0"
+                                               data-server="{{ s.speedtestServer.id }}"
                                                type="checkbox" 
                                                role="switch" 
-                                               id="speedtestServer_{{ speedtestServer.id }}"
-                                               {% if speedtestServer.selected == true  %}checked{% endif %}
+                                               id="speedtestServer_{{ s.speedtestServer.id }}"
+                                               {% if s.speedtestServer.selected == true  %}checked{% endif %}
                                                >
                                     </div>
                                 </td>

@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\SpeedtestServerRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,6 +14,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class SpeedtestServer extends AbstractEntity
 {
+    public function __construct()
+    {
+        $this->speedtests = new ArrayCollection();
+    }
+    
     #[ORM\Id]
     #[ORM\Column]
     private ?int $id = null;
@@ -45,6 +52,9 @@ class SpeedtestServer extends AbstractEntity
 
     #[ORM\ManyToOne]
     private ?User $updatedUser = null;
+    
+    #[ORM\OneToMany(targetEntity: Speedtest::class, mappedBy: 'speedtestServer')]
+    private Collection $speedtests; 
 
     public function getId(): ?int
     {

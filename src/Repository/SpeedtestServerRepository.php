@@ -61,7 +61,10 @@ class SpeedtestServerRepository extends ServiceEntityRepository
     public function list()
     {
         return $this->createQueryBuilder('ss')
+                        ->select('ss AS speedtestServer, COUNT(s.id) AS total')
+                        ->leftJoin('ss.speedtests', 's')
                         ->orderBy('ss.name', 'ASC')
+                        ->groupBy('ss.id, s.id')
                         ->getQuery()
                         ->getResult();
     }
