@@ -33,7 +33,7 @@ abstract class AbstractEntity
 
     private function updateddAt(): void
     {
-        if (property_exists(get_class($this), "createdAt") && null === $this->updatedAt) {
+        if (property_exists(get_class($this), "updatedAt") && null === $this->updatedAt) {
             $this->updatedAt = DateTimeHelper::currentDateTimeUTC();
         }
     }
