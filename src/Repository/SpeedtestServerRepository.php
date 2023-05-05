@@ -42,7 +42,6 @@ class SpeedtestServerRepository extends ServiceEntityRepository
             $this->save($speedtestServerSelected, true);
 
             if (false === $selected) {
-                dump($id, $speedtestServerSelected);
                 return $speedtestServerSelected;
             }
         }
@@ -52,8 +51,6 @@ class SpeedtestServerRepository extends ServiceEntityRepository
         $speedtestServer->setSelected(true);
         $speedtestServer->setUpdatedUser($user);
         $this->save($speedtestServer, true);
-
-        dump($id, $speedtestServer, $speedtestServerSelected);
 
         return $speedtestServer;
     }
