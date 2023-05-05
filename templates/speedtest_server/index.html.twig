@@ -36,7 +36,7 @@
                                 <td class="d-none d-md-table-cell">{{ s.speedtestServer.location }}</td>
                                 <td class="d-none d-xl-table-cell">{{ s.speedtestServer.country }}</td>
                                 <td class="d-none d-xl-table-cell text-end">{{ s.total|number_format(0, ',', '.') }}</td>
-                                <td class="d-none d-xl-table-cell text-end">{{ s.speedtestServer.updatedAt|default(s.speedtestServer.createdAt)|format_datetime('short', 'short', locale=app.request.locale|replace({'_': '-'})) }}</td>
+                                <td class="d-none d-xl-table-cell text-end" id="speedtestServerDate_{{ s.speedtestServer.id }}">{{ s.speedtestServer.updatedAt|default(s.speedtestServer.createdAt)|format_datetime('short', 'short', timezone='America/Sao_Paulo', locale=app.request.locale|replace({'_': '-'})) }}</td>
                                 <td class="text-center">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input mx-0"
@@ -69,14 +69,22 @@
                 var id = $(this).attr('data-server');
                 var selected = $(this).prop("checked");
 
-                $.post("{{ path('app_speedtest_server_edit') }}", {id: id, select: selected})
-                        .done(function (data, textStatus, jqXHR) {                            
-                            $('input[data-server]').each(function(){
-                                $(this).prop("checked", false );
+                $.post("{{ path('app_speedtest_server_edit') }}", {id: id, selected: selected})
+                        .done(function (data, textStatus, jqXHR) {
+                            let updated = new Date(data.updatedAt);
+                            let updatedDate = updated.toLocaleDateString([], {timeZone: 'America/Sao_Paulo'}) + " " + updated.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo'});
+
+                            $('input[data-server]').each(function () {
+                                let currentId = $(this).prop("id");
+                                if ("speedtestServer_" + data.id !== currentId) {
+                                    $("#" + currentId).prop("checked", false);
+                                }
                             });
-                            
-                            $('#speedtestServer_' + data).prop("checked", selected);
-                        }).fail(function (data, textStatus, jqXHR) {
+
+                            //$('#speedtestServer_' + data.id).prop("checked", selected);
+                            $('#speedtestServerDate_' + data.id).html(updatedDate);
+                        })
+                        .fail(function (data, textStatus, jqXHR) {
                             console.log(data);
                             console.log(textStatus);
                             console.log(jqXHR);

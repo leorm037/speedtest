@@ -27,10 +27,10 @@ class SpeedtestServerController extends AbstractController
 
     public function edit(Request $request): JsonResponse
     {
-        $id = $request->get('id');
+        $id = intval($request->get('id'));
 
-        $selected = $request->attributes->getBoolean('selected');
-
+        $selected = "false" === $request->get('selected') ? false : true;
+        
         if (null === $id) {
             return $this->json(null, Response::HTTP_BAD_REQUEST);
         }
@@ -40,7 +40,7 @@ class SpeedtestServerController extends AbstractController
 
         $speedtestServer = $this->speedtestServerRepository->saveSelected($id, $selected, $user);
 
-        return $this->json($speedtestServer->getId(), Response::HTTP_OK);
+        return $this->json($speedtestServer, Response::HTTP_OK);
     }
 
 }

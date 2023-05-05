@@ -21,7 +21,7 @@ abstract class AbstractEntity
     #[ORM\PreUpdate]
     public function preUpdate(): void
     {
-        $this->updateddAt();
+        $this->updatedAt();
     }
 
     private function createdAt(): void
@@ -31,9 +31,9 @@ abstract class AbstractEntity
         }
     }
 
-    private function updateddAt(): void
+    private function updatedAt(): void
     {
-        if (property_exists(get_class($this), "updatedAt") && null === $this->updatedAt) {
+        if (property_exists(get_class($this), "updatedAt")) {
             $this->updatedAt = DateTimeHelper::currentDateTimeUTC();
         }
     }

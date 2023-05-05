@@ -42,14 +42,18 @@ class SpeedtestServerRepository extends ServiceEntityRepository
             $this->save($speedtestServerSelected, true);
 
             if (false === $selected) {
+                dump($id, $speedtestServerSelected);
                 return $speedtestServerSelected;
             }
         }
 
+        /** @var SpeedtestServer $speedtestServer */
         $speedtestServer = $this->findById($id);
         $speedtestServer->setSelected(true);
         $speedtestServer->setUpdatedUser($user);
         $this->save($speedtestServer, true);
+
+        dump($id, $speedtestServer, $speedtestServerSelected);
 
         return $speedtestServer;
     }
@@ -63,6 +67,8 @@ class SpeedtestServerRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('ss')
                         ->select('ss AS speedtestServer')
                         ->addSelect('COUNT(s.id) AS total')
+                        //->addSelect('MAX(s.downloadBandwidth) AS maxDownload, MIN(s.downloadBandwidth) AS minDownload, AVG(s.downloadBandwidth) AS avgDownload')
+                        //->addSelect('MAX(s.uploadBandwidth) AS maxUpload, MIN(s.uploadBandwidth) AS minUpload, AVG(s.uploadBandwidth) AS avgUpload')
                         ->orderBy('ss.name', 'ASC')
                         ->leftJoin('ss.speedtests', 's')
                         ->groupBy('ss.id')
