@@ -44,7 +44,7 @@ class SpeedtestRepository extends ServiceEntityRepository
 
     public function findByDays(int $days)
     {
-         $date = new DateTime();
+        $date = new DateTime();
         $date->sub(DateInterval::createFromDateString("{$days} day"));
         $dateFormat = $date->format('Y-m-d H:i:s');
 
@@ -57,7 +57,7 @@ class SpeedtestRepository extends ServiceEntityRepository
                         ->getResult()
         ;
     }
-    
+
     public function findByDateTime(DateTime $dateTime): ?Speedtest
     {
         return $this->createQueryBuilder('s')

@@ -27,9 +27,10 @@ class SpeedtestServerController extends AbstractController
 
     public function edit(Request $request): JsonResponse
     {
+
         $id = intval($request->get('id'));
 
-        $selected = "false" === $request->get('selected') ? false : true;
+        $selected = ("true" === $request->get('selected')) ? true : false;
         
         if (null === $id) {
             return $this->json(null, Response::HTTP_BAD_REQUEST);

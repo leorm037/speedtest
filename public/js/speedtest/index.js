@@ -34,6 +34,7 @@ function graphicConstruct(speedtests) {
         data: data,
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             onClick: function (event, element) {
                 const TAG_SPINNER = '<div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden">Carregando...</span></div>';
 
