@@ -64,10 +64,7 @@ function graphicConstruct(speedtests) {
                 $('#modalDetalhe').modal('show');
 
                 $.post(URL_JSON_DETAIL, {dateTime: graphic.data.labels[element[0].index]})
-                        .done(function (data) {
-                            console.log(data);
-                            
-                            
+                        .done(function (data) {                            
                             if (data.message === 'success') {
                                 let d = new Date(data.speedtest.datetime);
 
@@ -78,28 +75,31 @@ function graphicConstruct(speedtests) {
                                         d.getHours().toString().padStart(2, '0') + ":" +
                                         d.getMinutes().toString().padStart(2, '0') + ":" +
                                         d.getSeconds()
-                                );                                                                                                        //01
-                                modalPingJitter = $('#modalPingJitter').text(parseFloat(data.speedtest.pingJitter).toLocaleString(LOCALE) + " ms");              //02
-                                modalPingLatency = $('#modalPingLatency').text(parseFloat(data.speedtest.pingLatency).toLocaleString(LOCALE) + " ms");           //03
-                                modalDownloadBandwidth = $('#modalDownloadBandwidth').text(parseFloat(data.speedtest.downloadBandwidth * 8 / 1048576).toLocaleString(LOCALE) + " Mbps");                      //04
-                                modalDownloadBytes = $('#modalDownloadBytes').text(parseFloat(data.speedtest.downloadBytes).toLocaleString(LOCALE) + " bytes"); //05
-                                modalDownloadElapsed = $('#modalDownloadElapsed').text(parseFloat(data.speedtest.downloadElapsed).toLocaleString(LOCALE));      //06
-                                modalUploadBandwidth = $('#modalUploadBandwidth').text(parseFloat(data.speedtest.uploadBandwidth * 8 / 1048576).toLocaleString(LOCALE) + " Mbps");                            //07
-                                modalUploadBytes = $('#modalUploadBytes').text(parseFloat(data.speedtest.uploadBytes).toLocaleString(LOCALE) + " bytes");       //08
-                                modalUploadElapsed = $('#modalUploadElapsed').text(parseFloat(data.speedtest.uploadElapsed).toLocaleString(LOCALE));            //09
-                                modalPacketLoss = $('#modalPacketLoss').text(parseFloat(data.speedtest.packetLoss).toLocaleString(LOCALE) + "%");               //10
-                                modalIsp = $('#modalIsp').text(data.speedtest.isp);                                                                             //11
-                                modalInterfaceInternalIp = $('#modalInterfaceInternalIp').text(data.speedtest.interfaceInternalIp);                             //12
-                                modalInterfaceName = $('#modalInterfaceName').text(data.speedtest.interfaceName);                                               //13
-                                modalInterfaceMacAddr = $('#modalInterfaceMacAddr').text(data.speedtest.interfaceMacAddr);                                      //14
-                                modalInterfaceVpn = $('#modalInterfaceVpn').text((data.speedtest.interfaceVpn) ? data.speedtest.interfaceVpn : LABEL_NO);       //15
-                                modalInterfaceExternalIp = $('#modalInterfaceExternalIp').text(data.speedtest.interfaceExternalIp);                             //16
-                                modalServerIp = $('#modalServerIp').text(data.speedtest.serverIp);                                                              //17
-                                modalServerName = $('#modalServerName').text(data.speedtest.speedtestServer.name);                                                        //18
-                                modalServerLocation = $('#modalServerLocation').text(data.speedtest.speedtestServer.location);                                            //19
-                                modalServerCountry = $('#modalServerCountry').text(data.speedtest.speedtestServer.country);                                               //20
-                                modalServerSelected = $('#modalServerSelected').text((data.speedtest.speedtestServer.selected) ? LABEL_YES : LABEL_NO);                   //21
-                                modalResultUrl = $('#modalResultUrl').html("<a href='" + data.speedtest.resultUrl + "' target='_blank'><i class='bi bi-activity'></i> Speedtest report</a>");                                               //22
+                                );                                                                                                                          //01
+                                
+                                console.log(d.getDay());
+                                
+                                modalPingJitter.text(parseFloat(data.speedtest.pingJitter).toLocaleString(LOCALE) + " ms");                                 //02
+                                modalPingLatency.text(parseFloat(data.speedtest.pingLatency).toLocaleString(LOCALE) + " ms");                               //03
+                                modalDownloadBandwidth.text(parseFloat(data.speedtest.downloadBandwidth * 8 / 1048576).toLocaleString(LOCALE) + " Mbps");   //04
+                                modalDownloadBytes.text(parseFloat(data.speedtest.downloadBytes).toLocaleString(LOCALE) + " bytes");                        //05
+                                modalDownloadElapsed.text(parseFloat(data.speedtest.downloadElapsed).toLocaleString(LOCALE));                               //06
+                                modalUploadBandwidth.text(parseFloat(data.speedtest.uploadBandwidth * 8 / 1048576).toLocaleString(LOCALE) + " Mbps");       //07
+                                modalUploadBytes.text(parseFloat(data.speedtest.uploadBytes).toLocaleString(LOCALE) + " bytes");                            //08
+                                modalUploadElapsed.text(parseFloat(data.speedtest.uploadElapsed).toLocaleString(LOCALE));                                   //09
+                                modalPacketLoss.text(parseFloat(data.speedtest.packetLoss).toLocaleString(LOCALE) + "%");                                   //10
+                                modalIsp.text(data.speedtest.isp);                                                                                          //11
+                                modalInterfaceInternalIp.text(data.speedtest.interfaceInternalIp);                                                          //12
+                                modalInterfaceName.text(data.speedtest.interfaceName);                                                                      //13
+                                modalInterfaceMacAddr.text(data.speedtest.interfaceMacAddr);                                                                //14
+                                modalInterfaceVpn.text((data.speedtest.interfaceVpn) ? data.speedtest.interfaceVpn : LABEL_NO);                             //15
+                                modalInterfaceExternalIp.text(data.speedtest.interfaceExternalIp);                                                          //16
+                                modalServerIp.text(data.speedtest.serverIp);                                                                                //17
+                                modalServerName.text(data.speedtest.speedtestServer.name);                                                                  //18
+                                modalServerLocation.text(data.speedtest.speedtestServer.location);                                                          //19
+                                modalServerCountry.text(data.speedtest.speedtestServer.country);                                                            //20
+                                modalServerSelected.text((data.speedtest.speedtestServer.selected) ? LABEL_YES : LABEL_NO);                                 //21
+                                modalResultUrl.html("<a href='" + data.speedtest.resultUrl + "' target='_blank'><i class='bi bi-activity'></i> Speedtest report</a>"); //22
                             }
                         }).fail(function(data,status,j){
                             console.log(data,status,j);
