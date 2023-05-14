@@ -68,7 +68,7 @@ function graphicConstruct(speedtests) {
                             if (data.message === 'success') {
                                 let d = new Date(data.speedtest.datetime);
 
-                                modalDateTime.text(data.toLocaleDateString() + " " + data.toLocaleTimeString());                                                                                                                          //01
+                                modalDateTime.text(d.toLocaleDateString() + " " + d.toLocaleTimeString());                                                                                                                          //01
                                 modalPingJitter.text(parseFloat(data.speedtest.pingJitter).toLocaleString(LOCALE) + " ms");                                 //02
                                 modalPingLatency.text(parseFloat(data.speedtest.pingLatency).toLocaleString(LOCALE) + " ms");                               //03
                                 modalDownloadBandwidth.text(parseFloat(data.speedtest.downloadBandwidth * 8 / 1048576).toLocaleString(LOCALE) + " Mbps");   //04
