@@ -65,12 +65,15 @@ function graphicConstruct(speedtests) {
 
                 $.post(URL_JSON_DETAIL, {dateTime: graphic.data.labels[element[0].index]})
                         .done(function (data) {
+                            console.log(data);
+                            
+                            
                             if (data.message === 'success') {
                                 let d = new Date(data.speedtest.datetime);
 
                                 modalDateTime.text(
                                         d.getDay().toString().padStart(2, '0') + "/" +
-                                        d.getMonth().toString().padStart(2, '0') + "/" +
+                                        (d.getMonth() + 1).toString().padStart(2, '0') + "/" +
                                         d.getFullYear() + " " +
                                         d.getHours().toString().padStart(2, '0') + ":" +
                                         d.getMinutes().toString().padStart(2, '0') + ":" +
@@ -96,8 +99,7 @@ function graphicConstruct(speedtests) {
                                 modalServerLocation = $('#modalServerLocation').text(data.speedtest.speedtestServer.location);                                            //19
                                 modalServerCountry = $('#modalServerCountry').text(data.speedtest.speedtestServer.country);                                               //20
                                 modalServerSelected = $('#modalServerSelected').text((data.speedtest.speedtestServer.selected) ? LABEL_YES : LABEL_NO);                   //21
-                                modalResultUrl = $('#modalResultUrl').html("<a href='" + data.speedtest.resultUrl +
-                                        "' target='_blank'><i class='bi bi-activity'></i> Speedtest report</a>");                                               //22
+                                modalResultUrl = $('#modalResultUrl').html("<a href='" + data.speedtest.resultUrl + "' target='_blank'><i class='bi bi-activity'></i> Speedtest report</a>");                                               //22
                             }
                         }).fail(function(data,status,j){
                             console.log(data,status,j);
