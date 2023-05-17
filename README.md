@@ -80,3 +80,7 @@ sudo cp ~/git/speedtest/cron.daily/speedtest-register /etc/cron.daily
 
 http://localhost/speedtest
 
+### Favicon
+
+https://favicon.io/favicon-converter/
+

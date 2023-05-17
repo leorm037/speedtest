@@ -15,12 +15,51 @@
                     <thead class="table-light">
                         <tr>
                             <th>#</th>
-                            <th>{{ 'name'|trans([], 'label') }}</th>
-                            <th class="d-none d-lg-table-cell">{{ 'host'|trans([], 'label') }}</th>
+                            <th>
+                                <div class="d-flex justify-content-between">
+                                    <div>{{ 'name'|trans([], 'label') }}</div>
+                                    <div>
+                                        {% if 'name' == app.request.get('sort') and 'DESC' == app.request.get('order') %}
+                                            <a href="{{ path('app_speedtest_server_index', {sort:'name',order:'ASC'}) }}"><i class="bi bi-arrow-up"></i></a>
+                                        {% elseif 'name' == app.request.get('sort') and 'ASC' == app.request.get('order') %}
+                                            <a href="{{ path('app_speedtest_server_index', {sort:'name',order:'DESC'}) }}"><i class="bi bi-arrow-down"></i></i></a>
+                                        {% else %}
+                                            <a href="{{ path('app_speedtest_server_index', {sort:'name',order:'ASC'}) }}"><i class="bi bi-arrow-down-up"></i></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="d-none d-lg-table-cell">
+                                <div class="d-flex justify-content-between">
+                                    <div>{{ 'host'|trans([], 'label') }}</div>
+                                    <div>
+                                        {% if 'host' == app.request.get('sort') and 'DESC' == app.request.get('order') %}
+                                            <a href="{{ path('app_speedtest_server_index', {sort:'host',order:'ASC'}) }}"><i class="bi bi-arrow-up"></i></a>
+                                        {% elseif 'host' == app.request.get('sort') and 'ASC' == app.request.get('order') %}
+                                            <a href="{{ path('app_speedtest_server_index', {sort:'host',order:'DESC'}) }}"><i class="bi bi-arrow-down"></i></i></a>
+                                        {% else %}
+                                            <a href="{{ path('app_speedtest_server_index', {sort:'host',order:'ASC'}) }}"><i class="bi bi-arrow-down-up"></i></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </th>
                             <th class="d-none d-xl-table-cell">{{ 'port'|trans([], 'label') }}</th>
                             <th class="d-none d-md-table-cell">{{ 'location'|trans([], 'label') }}</th>
                             <th class="d-none d-xl-table-cell">{{ 'country'|trans([], 'label') }}</th>
-                            <th class="d-none d-xl-table-cell">{{ 'records'|trans([], 'label') }}</th>
+                            <th class="d-none d-xl-table-cell">
+                                <div class="d-flex justify-content-between">
+                                    <div>{{ 'records'|trans([], 'label') }}</div>
+                                    <div>
+                                        {% if 'total' == app.request.get('sort') and 'DESC' == app.request.get('order') %}
+                                            <a href="{{ path('app_speedtest_server_index', {sort:'total',order:'ASC'}) }}"><i class="bi bi-arrow-up"></i></a>
+                                        {% elseif 'total' == app.request.get('sort') and 'ASC' == app.request.get('order') %}
+                                            <a href="{{ path('app_speedtest_server_index', {sort:'total',order:'DESC'}) }}"><i class="bi bi-arrow-down"></i></i></a>
+                                        {% else %}
+                                            <a href="{{ path('app_speedtest_server_index', {sort:'total',order:'ASC'}) }}"><i class="bi bi-arrow-down-up"></i></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </th>
                             <th class="d-none d-xl-table-cell">{{ 'updated'|trans([], 'label') }}</th>
                             <th class="text-center">{{ 'actions'|trans([], 'label') }}</th>
                         </tr>

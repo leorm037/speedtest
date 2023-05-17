@@ -18,9 +18,12 @@ class SpeedtestServerController extends AbstractController
         $this->speedtestServerRepository = $speedtestServerRepository;
     }
 
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $list = $this->speedtestServerRepository->list();
+        $sort = $request->get('sort');
+        $order = $request->get('order');
+        
+        $list = $this->speedtestServerRepository->list($sort, $order);
         
         return $this->render('speedtest_server/index.html.twig', compact('list'));
     }

@@ -59,15 +59,32 @@ class SpeedtestServerRepository extends ServiceEntityRepository
      * 
      * @return SpeedtestServer[]
      */
-    public function list()
+    public function list(string $sort = null, string $order = null)
     {
-        return $this->createQueryBuilder('ss')
-                        ->select('ss AS speedtestServer')
-                        ->addSelect('COUNT(s.id) AS total')
-                        //->addSelect('MAX(s.downloadBandwidth) AS maxDownload, MIN(s.downloadBandwidth) AS minDownload, AVG(s.downloadBandwidth) AS avgDownload')
-                        //->addSelect('MAX(s.uploadBandwidth) AS maxUpload, MIN(s.uploadBandwidth) AS minUpload, AVG(s.uploadBandwidth) AS avgUpload')
-                        ->orderBy('ss.name', 'ASC')
-                        ->leftJoin('ss.speedtests', 's')
+        $columns = ['datetime', 'host', 'port', 'location', 'name', 'country', 'selected', 'total'];
+
+        $query = $this->createQueryBuilder('ss')
+                ->select('ss AS speedtestServer')
+                ->addSelect('COUNT(s.id) AS total')
+        ;
+        //->addSelect('MAX(s.downloadBandwidth) AS maxDownload, MIN(s.downloadBandwidth) AS minDownload, AVG(s.downloadBandwidth) AS avgDownload')
+        //->addSelect('MAX(s.uploadBandwidth) AS maxUpload, MIN(s.uploadBandwidth) AS minUpload, AVG(s.uploadBandwidth) AS avgUpload')
+
+
+        if (!in_array($sort, $columns)) {
+            $query->orderBy('ss.name', 'ASC');
+        } else {
+            if (null == $order) {
+                $order = "ASC";
+            }
+            if ('total' === $sort) {
+                $query->orderBy("total", $order);
+            } else {
+                $query->orderBy("ss.{$sort}", $order);
+            }
+        }
+
+        return $query->leftJoin('ss.speedtests', 's')
                         ->groupBy('ss.id')
                         ->getQuery()
                         ->getResult();
