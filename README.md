@@ -26,7 +26,7 @@ sudo systemctl restart apache2
 sudo apt install mariadb-server php-mysql
 ```
 
-### Composer
+## Instalação Composer
 
 https://getcomposer.org/download/
 
@@ -41,7 +41,7 @@ sudo php -r "unlink('composer-setup.php');"
 sudo ln -s /opt/composer/composer.phar /usr/local/bin/composer
 ```
 
-### Speedtest
+## Instalação Speedtest
 
 https://www.speedtest.net/apps/cli
 
@@ -51,12 +51,12 @@ sudo apt install speedtest
 sudo speedtest
 ```
 
-### Tradução
+## Tradução
 ```
 php bin/console translation:extract --force --dump-messages --format=yaml --sort=asc pt_BR
 ```
 
-### Gráfico Speedtest
+## Gráfico Speedtest
 
 https://github.com/leorm037/speedtest
 
@@ -80,7 +80,7 @@ sudo cp ~/git/speedtest/cron.daily/speedtest-register /etc/cron.daily
 
 http://localhost/speedtest
 
-### Favicon
+## Favicon
 
 https://favicon.io/favicon-converter/
 
