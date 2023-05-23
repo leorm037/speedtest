@@ -15,11 +15,9 @@ app_speedtest_days:
         _locale: en|pt_BR
 
 app_speedtest_json_days:
-    path: /json/days/{days}
+    path: /json/days
     controller: App\Controller\SpeedtestController::jsonDays
-    methods: GET
-    defaults: 
-        days: 1
+    methods: POST
 
 app_speedtest_json_detail:
     path: /json/detail

@@ -33,8 +33,10 @@ class SpeedtestController extends AbstractController
         ]);
     }
 
-    public function jsonDays(int $days): JsonResponse
+    public function jsonDays(Request $request): JsonResponse
     {
+        $days = intval($request->get('days'));
+        
         return $this->json([
                     'message' => 'success',
                     'result' => $this->speedtestRepository->findByDays($days)

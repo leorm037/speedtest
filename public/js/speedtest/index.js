@@ -1,3 +1,5 @@
+var graphic = null;
+
 function graphicConstruct(speedtests) {
     var labels = [];
     var downloadBandwidth = [];
@@ -158,13 +160,21 @@ function graphicConstruct(speedtests) {
             }
         }
     };
-    const graphic = new Chart(document.getElementById('speedtest'), config);
+    if (null === graphic) {
+        graphic = new Chart(document.getElementById('speedtest'), config);
+    } else {
+        graphic.config = config;
+        graphic.update;
+    }
 }
 
-function graphicShow(url) {
-    $.get({
-        url: url
-    }).done(function (data) {
+function graphicShow(days) {
+    $.post(
+        URL_JSON_DAYS, 
+        {
+            days: days
+        }
+    ).done(function (data) {
         graphicConstruct(data);
     });
 }

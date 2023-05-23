@@ -26,6 +26,12 @@
         const MAXSPEEDDOWNLOADMBPS = 750;
         const MAXSPEEDUPLOADMBPS = 90;
         const URL_JSON_DETAIL = "{{ url('app_speedtest_json_detail') }}";
-        graphicShow("{{ url('app_speedtest_json_days', {'days': days}) }}");
+        const URL_JSON_DAYS = "{{ url('app_speedtest_json_days') }}";
+
+        graphicShow("{{ days }}");
+        
+        setInterval(function(){
+            graphicShow({{ days }});
+        },1800000);
     </script>
 {% endblock %}
