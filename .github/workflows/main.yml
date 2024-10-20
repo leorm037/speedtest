@@ -56,12 +56,12 @@ jobs:
           port: ${{ secrets.TUX_SSH_PORT }}
           script: |            
             cd /deploy/temperature
-            APP_ENV=prod APP_DEBUG=0 composer install --no-dev --no-progress -a -o
-            APP_ENV=prod APP_DEBUG=0 composer dump-env prod
+            APP_ENV=prod composer install --no-dev --no-progress -a -o
+            APP_ENV=prod composer dump-env prod
             sudo rm -Rf /var/www/speedtest
             sudo cp -a /deploy/speedtest/. /var/www/speedtest/
             cd /var/www/speedtest
-            APP_ENV=prod APP_DEBUG=0 sudo php bin/console cache:clear
+            APP_ENV=prod sudo php bin/console cache:clear
             sudo rm -Rf public/assets
-            APP_ENV=prod APP_DEBUG=0 sudo php bin/console asset-map:compile
+            APP_ENV=prod sudo php bin/console asset-map:compile
             sudo chown -R www-data: .
