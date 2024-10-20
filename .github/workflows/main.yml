@@ -21,21 +21,21 @@ jobs:
           username: ${{ secrets.TUX_USERNAME }}
           key: ${{ secrets.TUX_SSH_PRIVATE_KEY }}
           script: |
-            rm -R /deploy/speedtest/assets
-            rm -R /deploy/speedtest/bin
-            rm -R /deploy/speedtest/config
-            rm -R /deploy/speedtest/cron
-            rm -R /deploy/speedtest/database
-            rm -R /deploy/speedtest/docker
-            rm -R /deploy/speedtest/migrations
-            rm -R /deploy/speedtest/nbproject
-            rm -R /deploy/speedtest/public
-            rm -R /deploy/speedtest/src
-            rm -R /deploy/speedtest/templates
-            rm -R /deploy/speedtest/tests
-            rm -R /deploy/speedtest/translations
-            rm -R /deploy/speedtest/var
-            rm -R /deploy/speedtest/vendor
+            rm -RTf /deploy/speedtest/assets
+            rm -RTf /deploy/speedtest/bin
+            rm -RTf /deploy/speedtest/config
+            rm -RTf /deploy/speedtest/cron
+            rm -RTf /deploy/speedtest/database
+            rm -RTf /deploy/speedtest/docker
+            rm -RTf /deploy/speedtest/migrations
+            rm -RTf /deploy/speedtest/nbproject
+            rm -RTf /deploy/speedtest/public
+            rm -RTf /deploy/speedtest/src
+            rm -RTf /deploy/speedtest/templates
+            rm -RTf /deploy/speedtest/tests
+            rm -RTf /deploy/speedtest/translations
+            rm -RTf /deploy/speedtest/var
+            rm -RTf /deploy/speedtest/vendor
       
       - name: "Copiar código"
         uses: appleboy/scp-action@v0.1.7
