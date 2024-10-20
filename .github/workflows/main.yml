@@ -17,9 +17,9 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.TUX_HOST }}
+          port: ${{ secrets.TUX_SSH_PORT }}
           username: ${{ secrets.TUX_USERNAME }}
           key: ${{ secrets.TUX_SSH_PRIVATE_KEY }}
-          port: ${{ secrets.TUX_SSH_PORT }}
           script: |
             rm -R /deploy/speedtest/assets
             rm -R /deploy/speedtest/bin
