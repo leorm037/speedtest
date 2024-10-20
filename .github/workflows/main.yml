@@ -16,10 +16,10 @@ jobs:
       - name: "Limpar diretório de deploy"
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
+          host: ${{ secrets.TUX_HOST }}
+          username: ${{ secrets.TUX_USERNAME }}
           key: ${{ secrets.TUX_SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
+          port: ${{ secrets.TUX_SSH_PORT }}
           script: |
             rm -R /deploy/speedtest/assets
             rm -R /deploy/speedtest/bin
