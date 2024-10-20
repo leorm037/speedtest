@@ -55,7 +55,7 @@ jobs:
           key: ${{ secrets.TUX_SSH_PRIVATE_KEY }}
           port: ${{ secrets.TUX_SSH_PORT }}
           script: |            
-            cd /deploy/temperature
+            cd /deploy/speedtest
             APP_ENV=prod composer install --no-dev --no-progress -a -o
             APP_ENV=prod composer dump-env prod
             sudo rm -Rf /var/www/speedtest
