@@ -16,7 +16,7 @@
 {% endblock %}
 {% block javascripts_footer %}
     {{ parent() }}
-    <script type="module" src="{{ asset('dist/chart.umd.js', 'chartjs') }}"></script>
+    <script src="{{ asset('chartjs/chart.umd.js') }}"></script>
     <script src="{{ asset('js/speedtest/index.js') }}"></script>
     <script>
         const LOCALE = '{{ app.request.locale|replace({'_':'-'}) }}';

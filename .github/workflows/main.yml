@@ -1,16 +1,43 @@
-name: "Deploy para TUX"
+name: "TUX"
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+    
+permissions:
+  contents: read
+    
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: "Clone da branch main"
+      - name: "Obter o código"
         uses: actions/checkout@v4
-        
-      - name: "Copiar arquivos da branch main para TUX"
+      
+      - name: "Limpar diretório de deploy"
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.TUX_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            rm -R /deploy/speedtest/assets
+            rm -R /deploy/speedtest/bin
+            rm -R /deploy/speedtest/config
+            rm -R /deploy/speedtest/cron
+            rm -R /deploy/speedtest/database
+            rm -R /deploy/speedtest/docker
+            rm -R /deploy/speedtest/migrations
+            rm -R /deploy/speedtest/nbproject
+            rm -R /deploy/speedtest/public
+            rm -R /deploy/speedtest/src
+            rm -R /deploy/speedtest/templates
+            rm -R /deploy/speedtest/tests
+            rm -R /deploy/speedtest/translations
+            rm -R /deploy/speedtest/var
+            rm -R /deploy/speedtest/vendor
+      
+      - name: "Copiar código"
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.TUX_HOST }}
@@ -19,7 +46,8 @@ jobs:
           key: ${{ secrets.TUX_SSH_PRIVATE_KEY }}
           source: "."
           target: "/deploy/speedtest"
-      - name: "Deploy da aplicação"
+          
+      - name: "Construção da aplicação"
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.TUX_HOST }}
@@ -28,9 +56,12 @@ jobs:
           port: ${{ secrets.TUX_SSH_PORT }}
           script: |            
             cd /deploy/temperature
-            composer install -q -a -n
+            composer install --no-dev --no-progress -a -o
+            composer dump-env prod
+            sudo rm -RTf /var/www/speedtest
             sudo cp -a /deploy/speedtest/. /var/www/speedtest/
             cd /var/www/speedtest
-            sudo composer dump-env prod -q -n
-            sudo php bin/console cache:clear -q -n
+            APP_ENV=prod APP_DEBUG=0 sudo php bin/console cache:clear
+            sudo rm -R public/assets
+            APP_ENV=prod APP_DEBUG=0 sudo php bin/console asset-map:compile
             sudo chown -R www-data: .
