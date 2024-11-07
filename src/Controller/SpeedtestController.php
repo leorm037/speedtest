@@ -64,7 +64,7 @@ class SpeedtestController extends AbstractController
 
         $speedtest = $this->speedtestRepository->findByDateTime($dateTime);
         
-        $this->logger->info($dateTime, $speedtest);
+        $this->logger->info($dateTime->format('d/m/Y H:i:s'), $speedtest);
 
         return $this->json([
                     'message' => 'success',
