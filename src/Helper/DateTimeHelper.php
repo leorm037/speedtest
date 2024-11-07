@@ -26,7 +26,6 @@ class DateTimeHelper
     public static function currentDateTimeImmutable(): DateTimeImmutable
     {
         $datetime = new DateTime();
-        $datetime->setTimezone('America/Sao_Paulo');
 
         return DateTimeImmutable::createFromMutable($datetime);
     }
