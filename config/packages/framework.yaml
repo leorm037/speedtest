@@ -14,6 +14,12 @@ framework:
 #            loading:
 #                base_path: '/jquery-loading-overlay-2.1.7/dist'
 
+    serializer:
+      default_context:
+        enable_max_depth: true
+        yaml_indentation: 2
+        maxDepth: 1
+        
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
 #    http_method_override: false

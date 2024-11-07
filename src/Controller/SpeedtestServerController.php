@@ -7,7 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/speedtest/server', name: 'app_speedtest_server_')]
 class SpeedtestServerController extends AbstractController
 {
 
@@ -18,6 +20,7 @@ class SpeedtestServerController extends AbstractController
         $this->speedtestServerRepository = $speedtestServerRepository;
     }
 
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(Request $request): Response
     {
         $sort = $request->get('sort');
@@ -28,6 +31,7 @@ class SpeedtestServerController extends AbstractController
         return $this->render('speedtest_server/index.html.twig', compact('list'));
     }
 
+    #[Route('/edit', name: 'edit', methods: ['POST'])]
     public function edit(Request $request): JsonResponse
     {
 
@@ -39,10 +43,7 @@ class SpeedtestServerController extends AbstractController
             return $this->json(null, Response::HTTP_BAD_REQUEST);
         }
 
-        /** @var User $user */
-        $user = $this->getUser();
-
-        $speedtestServer = $this->speedtestServerRepository->saveSelected($id, $selected, $user);
+        $speedtestServer = $this->speedtestServerRepository->saveSelected($id, $selected);
 
         return $this->json($speedtestServer, Response::HTTP_OK);
     }

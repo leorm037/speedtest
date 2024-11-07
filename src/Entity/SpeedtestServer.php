@@ -9,16 +9,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Ignore;
 
 #[ORM\Entity(repositoryClass: SpeedtestServerRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class SpeedtestServer extends AbstractEntity
 {
+
     public function __construct()
     {
         $this->speedtests = new ArrayCollection();
     }
-    
+
     #[ORM\Id]
     #[ORM\Column]
     private ?int $id = null;
@@ -50,17 +52,26 @@ class SpeedtestServer extends AbstractEntity
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     protected ?DateTimeInterface $updatedAt = null;
 
-    #[ORM\ManyToOne]
-    private ?User $updatedUser = null;
-    
     #[ORM\OneToMany(targetEntity: Speedtest::class, mappedBy: 'speedtestServer')]
-    private Collection $speedtests; 
+    #[Ignore]
+    private Collection $speedtests;
+
+
+    public function getSpeedtests(): Collection
+    {
+        return $this->speedtests;
+    }
+
+    public function setSpeedtests(Collection $speedtests): void
+    {
+        $this->speedtests = $speedtests;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
-    
+
     public function setId(int $id): self
     {
         $this->id = $id;
@@ -160,17 +171,5 @@ class SpeedtestServer extends AbstractEntity
     public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
-    }
-
-    public function getUpdatedUser(): ?User
-    {
-        return $this->updatedUser;
-    }
-
-    public function setUpdatedUser(?User $updatedUser): self
-    {
-        $this->updatedUser = $updatedUser;
-
-        return $this;
     }
 }

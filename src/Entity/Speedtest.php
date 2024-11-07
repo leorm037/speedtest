@@ -74,8 +74,8 @@ class Speedtest extends AbstractEntity
     #[ORM\Column(nullable: true)]
     private ?bool $resultPersisted = null;
 
-    #[ORM\ManyToOne(targetEntity: SpeedtestServer::class, inversedBy: 'speedtests', fetch: "EAGER")]
-    #[ORM\JoinColumn(name: 'speedtest_server_id', referencedColumnName: 'id', nullable: true)]
+    #[ORM\ManyToOne(targetEntity: SpeedtestServer::class, inversedBy: 'speedtests', fetch: 'EAGER')]
+    #[ORM\JoinColumn(name: 'speedtest_server_id', referencedColumnName: 'id')]
     private ?SpeedtestServer $speedtestServer = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 20, scale: 2, nullable: true)]
@@ -342,5 +342,4 @@ class Speedtest extends AbstractEntity
     {
         return call_user_func('get_object_vars', $this);
     }
-
 }

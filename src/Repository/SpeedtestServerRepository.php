@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\SpeedtestServer;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -32,13 +31,12 @@ class SpeedtestServerRepository extends ServiceEntityRepository
         }
     }
 
-    public function saveSelected(int $id, bool $selected, User $user): ?SpeedtestServer
+    public function saveSelected(int $id, bool $selected): ?SpeedtestServer
     {
         $speedtestServerSelected = $this->speedtestServerSelected();
 
         if (null !== $speedtestServerSelected) {
             $speedtestServerSelected->setSelected(false);
-            $speedtestServerSelected->setUpdatedUser($user);
             $this->save($speedtestServerSelected, true);
 
             if (false === $selected) {
@@ -49,7 +47,6 @@ class SpeedtestServerRepository extends ServiceEntityRepository
         /** @var SpeedtestServer $speedtestServer */
         $speedtestServer = $this->findById($id);
         $speedtestServer->setSelected(true);
-        $speedtestServer->setUpdatedUser($user);
         $this->save($speedtestServer, true);
 
         return $speedtestServer;

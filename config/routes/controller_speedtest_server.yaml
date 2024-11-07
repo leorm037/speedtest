@@ -1,9 +1,0 @@
-app_speedtest_server_index:
-    path: /speedtest/server/edit
-    controller: App\Controller\SpeedtestServerController::index
-    methods: GET
-
-app_speedtest_server_edit:
-    path: /speedtest/server/edit
-    controller: App\Controller\SpeedtestServerController::edit
-    methods: POST

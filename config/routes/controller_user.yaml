@@ -1,4 +1,0 @@
-app_user_edit:
-    path: /user/edit
-    controller: App\Controller\UserController::edit
-    methods: GET|POST
