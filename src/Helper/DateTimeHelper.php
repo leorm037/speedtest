@@ -23,11 +23,18 @@ class DateTimeHelper
         return DateTimeImmutable::createFromMutable(self::currentDateTimeUTC());
     }
 
+    public static function currentDateTimeImmutable(): DateTimeImmutable
+    {
+        $datetime = new DateTime();
+        $datetime->setTimezone('America/Sao_Paulo');
+
+        return DateTimeImmutable::createFromMutable($datetime);
+    }
+
     public static function dateTimeImmutableUTC(DateTimeInterface $date): DateTimeImmutable
     {
         $date->setTimezone(new \DateTimeZone('UTC'));
 
         return DateTimeImmutable::createFromMutable($date);
     }
-
 }

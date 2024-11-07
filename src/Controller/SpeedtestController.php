@@ -59,12 +59,9 @@ class SpeedtestController extends AbstractController
     {
         $dateTimeString = $request->get('dateTime');
 
-        $dateTime = DateTime::createFromFormat('d/m/Y H:i:s', $dateTimeString, new DateTimeZone('America/Sao_Paulo'));
-        $dateTime->setTimezone(new \DateTimeZone('UTC'));
+        $dateTime = DateTime::createFromFormat('d/m/Y H:i:s', $dateTimeString);
 
         $speedtest = $this->speedtestRepository->findByDateTime($dateTime);
-        
-        $this->logger->info($dateTime->format('d/m/Y H:i:s'), $speedtest);
 
         return $this->json([
                     'message' => 'success',

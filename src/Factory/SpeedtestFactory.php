@@ -14,7 +14,7 @@ class SpeedtestFactory
         $speedtest = new Speedtest();
 
         return $speedtest
-                        ->setDateTime(DateTimeHelper::currentDateTimeImmutableUTC())
+                        ->setDateTime(DateTimeHelper::currentDateTimeImmutable())
                         ->setPingJitter($json->ping->jitter)
                         ->setPingLatency($json->ping->latency)
                         ->setDownloadBandwidth($json->download->bandwidth)
