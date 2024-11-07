@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\SpeedtestRepository;
 use DateTime;
 use DateTimeZone;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,11 +16,11 @@ use Symfony\Component\Routing\Attribute\Route;
 class SpeedtestController extends AbstractController
 {
 
-    private SpeedtestRepository $speedtestRepository;
-
-    public function __construct(SpeedtestRepository $speedtestRepository)
+    public function __construct(
+            private SpeedtestRepository $speedtestRepository,
+            private LoggerInterface $logger
+            )
     {
-        $this->speedtestRepository = $speedtestRepository;
     }
 
     #[Route('', name: 'index', methods: ['GET'])]
@@ -62,6 +63,8 @@ class SpeedtestController extends AbstractController
         $dateTime->setTimezone(new \DateTimeZone('UTC'));
 
         $speedtest = $this->speedtestRepository->findByDateTime($dateTime);
+        
+        $this->logger->info($dateTime, $speedtest);
 
         return $this->json([
                     'message' => 'success',
