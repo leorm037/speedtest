@@ -1,0 +1,41 @@
+services:
+    mariadb:
+        container_name: speedtest-mariadb
+        image: mariadb:10.11.14
+        working_dir: /app
+        ports:
+            - 3306:3306
+        environment:
+            - MARIADB_ROOT_PASSWORD=speedtest
+            - MARIADB_DATABASE=speedtest
+            - MARIADB_USER=speedtest
+            - MARIADB_PASSWORD=speedtest
+        volumes:
+            - type: volume
+              source: mariadb
+              target: /var/lib/mysql
+            - .:/app
+            
+    phpmyadmin:
+        container_name: speedtest-phpmyadmin
+        image: phpmyadmin:latest
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=speedtest
+            - MYSQL_USER=speedtest
+            - MYSQL_PASSWORD=speedtest
+            - PMA_HOST=db
+            - PMA_PORT=3306
+            - PMA_USER=speedtest
+            - PMA_PASSWORD=speedtest
+            - PMA_PMADB=speedtest
+#            - PMA_ARBITRARY=0
+        ports:
+            - 8080:80
+        depends_on:
+            - mariadb
+        links:
+            - mariadb:db
+
+volumes:
+    mariadb:
