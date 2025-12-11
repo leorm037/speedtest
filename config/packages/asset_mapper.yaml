@@ -2,7 +2,11 @@ framework:
     asset_mapper:
         # The paths to make available to the asset mapper.
         paths:
-            - assets/
+            assets/: ''
+            assets/bootstrap-5.3.8-dist/: 'bootstrap'
+            assets/bootstrap-icons-1.13.1/: 'bootstrap-icons'
+            assets/Chart.js-4.5.1/dist/: 'chartjs'
+            assets/jquery-loading-overlay-2.1.7/dist/: 'jquery-loading'
         missing_import_mode: strict
 
 when@prod:

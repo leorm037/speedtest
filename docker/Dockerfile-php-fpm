@@ -1,0 +1,26 @@
+FROM php:8.4.15-fpm-alpine
+
+RUN apk update
+
+RUN apk add --no-cache --virtual .build-deps icu icu-dev icu-libs icu-data-full zlib-dev libpng-dev libjpeg-turbo-dev freetype-dev oniguruma-dev $PHPIZE_DEPS
+
+RUN pecl install redis
+
+RUN docker-php-ext-configure intl
+
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+
+RUN docker-php-ext-enable redis
+
+RUN docker-php-ext-install -j$(nproc) intl pdo pdo_mysql gd mbstring opcache pdo_mysql
+
+# RUN apk del .build-deps icu-dev
+
+ENV LANG=pt_BR.UTF-8
+ENV LC_ALL=pt_BR.UTF-8
+
+COPY etc/php-fpm/timezone.ini /usr/local/etc/php/conf.d/timezone.ini
+COPY etc/php-fpm/intl-default_locale.ini /usr/local/etc/php/conf.d/intl-default_locale.ini
+
+
+WORKDIR /app

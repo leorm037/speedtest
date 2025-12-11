@@ -23,7 +23,8 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         identity_generation_preferences:
             Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
-        auto_mapping: true
+        # Since doctrine/doctrine-bundle 3.1: The "auto_mapping" option is deprecated and will be removed in DoctrineBundle 4.0, as it only accepts `false` since 3.0.
+        # auto_mapping: true
         mappings:
             App:
                 type: attribute
@@ -31,8 +32,21 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+        second_level_cache:
+            enabled: true
+            region_cache_driver:
+                type: pool
+                pool: doctrine.second_level_cache_pool
+            regions:
+                read_write:
+                    lifetime: 3600
+                    cache_driver:
+                        type: pool
+                        pool: doctrine.second_level_cache_read_write_pool
+                    type: filelock
         controller_resolver:
-            auto_mapping: false
+            # Since doctrine/doctrine-bundle 3.1: The "auto_mapping" option is deprecated and will be removed in DoctrineBundle 4.0, as it only accepts `false` since 3.0.
+            # auto_mapping: false
 
 when@test:
     doctrine:
