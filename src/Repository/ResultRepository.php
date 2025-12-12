@@ -12,6 +12,8 @@
 namespace App\Repository;
 
 use App\Entity\Result;
+use App\Helper\DateTimeHelper;
+use DateInterval;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,6 +22,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ResultRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Result::class);
@@ -32,6 +35,23 @@ class ResultRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findByDias(int $dias)
+    {
+        $date = DateTimeHelper::currentDateTime('UCT');
+        $date->sub(DateInterval::createFromDateString("{$dias} day"));
+
+        $dateFormat = $date->format('Y-m-d H:i:s');
+
+        return $this->createQueryBuilder('r')
+                        ->select('r.id,r.timestamp,r.downloadBandwidth,r.uploadBandwidth')
+                        ->andWhere('r.timestamp >= :date')
+                        ->setParameter('date', $dateFormat)
+                        ->orderBy('r.timestamp', 'DESC')
+                        ->getQuery()
+                        ->getResult()
+        ;
     }
 
     //    /**

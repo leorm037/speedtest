@@ -38,8 +38,10 @@ class SpeedtestRegisterCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+        
+        $io->info('Iniciando a medição, aguarde ...');
 
-        $result = $this->speedtestServer->register();
+        $result = $this->speedtestServer->testSpeed();
 
         if ($result instanceof Result) {
             $io->success('Medição realizada com sucesso');

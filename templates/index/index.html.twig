@@ -1,24 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page">{{ dias|default(1) }} {% if dias > 1 %}dias{% else %}dia{% endif %}</li>
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/leorm/git/speedtest/src/Controller/IndexController.php</code></li>
-        <li>Your template at <code>/home/leorm/git/speedtest/templates/index/index.html.twig</code></li>
-    </ul>
-</div>
+    <div class="card shadow">
+        <div class="card-body">
+            <h1 class="h5 card-title border-bottom pb-2"><i class="bi bi-graph-up"></i> Gráfico</h1>
+            <div class="chart-container w-100 shadown" style="position: relative; height:65vh; width:100vw">
+                <canvas id="speedtest"></canvas>
+            </div>
+        </div>
+    </div>
+    {% include 'index/_modalDetail.html.twig' %}
 {% endblock %}
 {% block javascripts_footer %}
     {{ parent() }}
     <script src="{{ asset('chartjs/chart.umd.min.js') }}"></script>
+    <script src="{{ asset('js/index/index.js') }}"></script>
+    <script>
+        const LOCALE = "pt_BR";
+        const LABEL_NO = "Não";
+        const LABEL_YES = "Sim";
+        const STEPSPEEDMBPS = 30;
+        const MAXSPEEDDOWNLOADMBPS = 750;
+        const MAXSPEEDUPLOADMBPS = 90;
+        const URL_JSON_DETALHE = "{{ url('app_json_detalhe') }}";
+        const URL_JSON_DIAS = "{{ url('app_json_dias') }}";
+
+        graphicShow("{{ dias }}");
+        
+        setInterval(function(){
+            graphicShow({{ dias }});
+        },1800000);
+    </script>
 {% endblock %}

@@ -28,7 +28,7 @@
         <header class="mb-3">
             <nav class="navbar navbar-expand-lg navbar-dark bg-success">
                 <div class="container-fluid">
-                    <a class="navbar-brand text-decoration-none" href="{{ path('app_speedtest_index') }}">
+                    <a class="navbar-brand text-decoration-none" href="{{ path('app_index') }}">
                         <i class="bi bi-speedometer2"></i> Speedtest
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Navigation menu">
@@ -37,17 +37,27 @@
                     {% include '_menu.html.twig' %}
                 </div>
             </nav>
-            <nav aria-label="breadcrumb" class="bg-success-subtle shadow border-bottom border-success" style="--bs-breadcrumb-divider: '>';">
+            <nav aria-label="breadcrumb" class="bg-speedtest-secondary shadow border-bottom border-speedtest" style="--bs-breadcrumb-divider: '>';">
                 <ol class="breadcrumb m-0 p-2">
-                    <li class="breadcrumb-item"><a href="{{ path('app_speedtest_index') }}" class="text-decoration-none"><i class="bi bi-house"></i> {{ 'home'|trans({},'label') }}</li></a>
+                    <li class="breadcrumb-item"><a href="{{ path('app_index') }}" class="text-decoration-none"><i class="bi bi-house"></i> Página inicial</li></a>
                         {% block breadcrumb %}{% endblock %}
                 </ol>
             </nav>
         </header>
         <main class="mb-3">
-            {% block body %}{% endblock %}
+            <div class="container-fluid">
+                {% block body %}{% endblock %}
+            </div>
         </main>
-        <footer class="mt-auto"></footer>
+            <footer class="mt-auto">
+                <nav class="navbar navbar-expand-lg navbar-dark sticky-bottom bg-speedtest">
+                <div class="container-fluid justify-content-end">
+                    <div class="text-end text-light">
+                        <small><i class="bi bi-bookmark"></i> Versão: {{ app.request.server.get('APP_VERSION') }}</small>
+                    </div>
+                </div>
+            </nav>
+            </footer>
         {% block javascripts_footer %}
         
             <script src="{{ asset('jquery/jquery-3.7.1.min.js') }}"></script>

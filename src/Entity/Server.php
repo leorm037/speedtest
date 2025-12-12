@@ -17,6 +17,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Ignore;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ServerRepository::class)]
@@ -56,6 +57,7 @@ class Server extends AbstractEntity
      * @var Collection<int, Result>
      */
     #[ORM\OneToMany(targetEntity: Result::class, mappedBy: 'server', orphanRemoval: true)]
+    #[Ignore]
     private Collection $results;
 
     #[ORM\Column(options: ['default' => '0'])]

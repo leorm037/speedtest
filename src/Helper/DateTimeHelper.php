@@ -18,7 +18,8 @@ use DateTimeZone;
 
 class DateTimeHelper
 {
-    public static function currentDateTime(?string $dateTimeZoneName = null): DateTimeInterface
+
+    public static function currentDateTime(?string $dateTimeZoneName = null): DateTime
     {
         $dateTime = new DateTime();
 
