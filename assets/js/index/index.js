@@ -5,7 +5,7 @@ function graphicConstruct(speedtests) {
     var downloadBandwidth = [];
     var uploadBandwidth = [];
 
-    Array.from(speedtests.result).reverse().map(speed => {
+    Array.from(speedtests.results).reverse().map(speed => {
         let data = new Date(speed.timestamp);
         labels.push(data.toLocaleDateString() + " " + data.toLocaleTimeString());
         downloadBandwidth.push(parseFloat(speed.downloadBandwidth * 8 / 1048576).toFixed());
@@ -68,30 +68,30 @@ function graphicConstruct(speedtests) {
                 $.post(URL_JSON_DETALHE, {dateTime: graphic.data.labels[element[0].index]})
                         .done(function (data) {                            
                             if (data.message === 'success') {
-                                let d = new Date(data.speedtest.datetime);
+                                let d = new Date(data.result.timestamp);
 
-                                modalDateTime.text(d.toLocaleDateString() + " " + d.toLocaleTimeString());                                                                                                                          //01
-                                modalPingJitter.text(parseFloat(data.speedtest.pingJitter).toLocaleString(LOCALE) + " ms");                                 //02
-                                modalPingLatency.text(parseFloat(data.speedtest.pingLatency).toLocaleString(LOCALE) + " ms");                               //03
-                                modalDownloadBandwidth.text(parseFloat(data.speedtest.downloadBandwidth * 8 / 1048576).toLocaleString(LOCALE) + " Mbps");   //04
-                                modalDownloadBytes.text(parseFloat(data.speedtest.downloadBytes).toLocaleString(LOCALE) + " bytes");                        //05
-                                modalDownloadElapsed.text(parseFloat(data.speedtest.downloadElapsed).toLocaleString(LOCALE));                               //06
-                                modalUploadBandwidth.text(parseFloat(data.speedtest.uploadBandwidth * 8 / 1048576).toLocaleString(LOCALE) + " Mbps");       //07
-                                modalUploadBytes.text(parseFloat(data.speedtest.uploadBytes).toLocaleString(LOCALE) + " bytes");                            //08
-                                modalUploadElapsed.text(parseFloat(data.speedtest.uploadElapsed).toLocaleString(LOCALE));                                   //09
-                                modalPacketLoss.text(parseFloat(data.speedtest.packetLoss).toLocaleString(LOCALE) + "%");                                   //10
-                                modalIsp.text(data.speedtest.isp);                                                                                          //11
-                                modalInterfaceInternalIp.text(data.speedtest.interfaceInternalIp);                                                          //12
-                                modalInterfaceName.text(data.speedtest.interfaceName);                                                                      //13
-                                modalInterfaceMacAddr.text(data.speedtest.interfaceMacAddr);                                                                //14
-                                modalInterfaceVpn.text((data.speedtest.interfaceVpn) ? data.speedtest.interfaceVpn : LABEL_NO);                             //15
-                                modalInterfaceExternalIp.text(data.speedtest.interfaceExternalIp);                                                          //16
-                                modalServerIp.text(data.speedtest.serverIp);                                                                                //17
-                                modalServerName.text(data.speedtest.speedtestServer.name);                                                                  //18
-                                modalServerLocation.text(data.speedtest.speedtestServer.location);                                                          //19
-                                modalServerCountry.text(data.speedtest.speedtestServer.country);                                                            //20
-                                modalServerSelected.text((data.speedtest.speedtestServer.selected) ? LABEL_YES : LABEL_NO);                                 //21
-                                modalResultUrl.html("<a href='" + data.speedtest.resultUrl + "' target='_blank'><i class='bi bi-activity'></i> Speedtest report</a>"); //22
+                                modalDateTime.text(d.toLocaleDateString(LOCALE) + " " + d.toLocaleTimeString(LOCALE));                                                                                                                          //01
+                                modalPingJitter.text(parseFloat(data.result.pingJitter).toLocaleString(LOCALE) + " ms");                                 //02
+                                modalPingLatency.text(parseFloat(data.result.pingLatency).toLocaleString(LOCALE) + " ms");                               //03
+                                modalDownloadBandwidth.text(parseFloat(data.result.downloadBandwidth * 8 / 1048576).toLocaleString(LOCALE) + " Mbps");   //04
+                                modalDownloadBytes.text(parseFloat(data.result.downloadBytes).toLocaleString(LOCALE) + " bytes");                        //05
+                                modalDownloadElapsed.text(parseFloat(data.result.downloadElapsed).toLocaleString(LOCALE));                               //06
+                                modalUploadBandwidth.text(parseFloat(data.result.uploadBandwidth * 8 / 1048576).toLocaleString(LOCALE) + " Mbps");       //07
+                                modalUploadBytes.text(parseFloat(data.result.uploadBytes).toLocaleString(LOCALE) + " bytes");                            //08
+                                modalUploadElapsed.text(parseFloat(data.result.uploadElapsed).toLocaleString(LOCALE));                                   //09
+                                modalPacketLoss.text(parseFloat(data.result.packetLoss).toLocaleString(LOCALE) + "%");                                   //10
+                                modalIsp.text(data.result.isp);                                                                                          //11
+                                modalInterfaceInternalIp.text(data.result.interfaceInternalIp);                                                          //12
+                                modalInterfaceName.text(data.result.interfaceName);                                                                      //13
+                                modalInterfaceMacAddr.text(data.result.interfaceMacAddr);                                                                //14
+                                modalInterfaceVpn.text((data.result.interfaceVpn) ? data.result.interfaceVpn : LABEL_NO);                             //15
+                                modalInterfaceExternalIp.text(data.result.interfaceExternalIp);                                                          //16
+                                modalServerIp.text(data.result.serverIp);                                                                                //17
+                                modalServerName.text(data.result.server.name);                                                                  //18
+                                modalServerLocation.text(data.result.server.location);                                                          //19
+                                modalServerCountry.text(data.result.server.country);                                                            //20
+                                modalServerSelected.text((data.result.server.selected) ? LABEL_YES : LABEL_NO);                                 //21
+                                modalResultUrl.html("<a href='" + data.result.resultUrl + "' target='_blank'><i class='bi bi-activity'></i> Speedtest report</a>"); //22
                             }
                         }).fail(function(data,status,j){
                             console.log(data,status,j);

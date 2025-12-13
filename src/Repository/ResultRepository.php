@@ -14,6 +14,7 @@ namespace App\Repository;
 use App\Entity\Result;
 use App\Helper\DateTimeHelper;
 use DateInterval;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,9 @@ class ResultRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Result[]
+     */
     public function findByDias(int $dias)
     {
         $date = DateTimeHelper::currentDateTime('UCT');
@@ -51,6 +55,22 @@ class ResultRepository extends ServiceEntityRepository
                         ->orderBy('r.timestamp', 'DESC')
                         ->getQuery()
                         ->getResult()
+        ;
+    }
+
+    public function findByDateTime(DateTime $dateTime): ?Result
+    {
+        $format = 'Y-m-d H:i:s';
+
+        $dateTimeString = $dateTime->format($format);
+
+        return $this->createQueryBuilder('r')
+                        ->where('r.timestamp = :date')
+                        ->setParameter('date', $dateTimeString)
+                        ->orderBy('r.timestamp', 'DESC')
+                        ->setMaxResults(1)
+                        ->getQuery()
+                        ->getOneOrNullResult()
         ;
     }
 

@@ -14,7 +14,6 @@ namespace App\Controller;
 use App\Helper\DateTimeHelper;
 use App\Message\RegisterMessage;
 use App\Repository\ResultRepository;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,8 +26,7 @@ final class IndexController extends AbstractController
 {
 
     public function __construct(
-            private ResultRepository $resultRepository,
-            private LoggerInterface $looger
+            private ResultRepository $repository
     )
     {
         
@@ -49,32 +47,39 @@ final class IndexController extends AbstractController
     #[Route('/json/dias', name: 'json_dias', methods: ['POST'])]
     public function jsonDias(Request $request): JsonResponse
     {
-        $dias = intval($request->request->get('dias'));
+        $dias = (int) $request->request->get('dias');
 
         return $this->json([
                     'message' => 'success',
-                    'result' => $this->resultRepository->findByDias($dias)
+                    'results' => $this->repository->findByDias($dias),
         ]);
     }
 
     #[Route('/json/detalhe', name: 'json_detalhe', methods: ['POST'])]
     public function jsonDetalhe(Request $request): JsonResponse
     {
-        $dias = intval($request->attributes->get('dias'));
+        
+        $dateTimeString = $request->request->get('dateTime');
+        
+        $format = 'j/n/Y g:i:s A';
+
+        $dateTime = \DateTime::createFromFormat($format, $dateTimeString);
+
+        $result = $this->repository->findByDateTime($dateTime);
 
         return $this->json([
                     'message' => 'success',
-                    'result' => $this->resultRepository->findByDias($dias)
+                    'result' => $result
         ]);
     }
 
-    #[Route('/medir', name: 'medir')]
-    public function medir(MessageBusInterface $bus): Response
+    #[Route('/medir', name: 'json_medir')]
+    public function medir(MessageBusInterface $bus): JsonResponse
     {
         $bus->dispatch(new RegisterMessage());
 
-        return $this->render('index/medir.html.twig', [
-                    'controller_name' => DateTimeHelper::dateTimeToString(),
+        return $this->json([
+                    'message' => 'success'
         ]);
     }
 }

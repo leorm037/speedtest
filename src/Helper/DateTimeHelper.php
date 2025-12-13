@@ -35,14 +35,14 @@ class DateTimeHelper
         return DateTimeImmutable::createFromInterface(self::currentDateTime($dateTimeZoneName));
     }
 
-    public static function stringToDateTime(string $dateTime, string $format = 'd/m/Y H:i:s', string $dateTimeZoneName = 'UTC'): ?DateTimeInterface
+    public static function stringToDateTime(string $dateTime, string $format = 'd/m/Y H:i:s', string $dateTimeZoneName = 'UTC'): ?DateTime
     {
         $date = DateTime::createFromFormat($format, $dateTime, new DateTimeZone($dateTimeZoneName));
 
         return $date;
     }
 
-    public static function stringToDateTimeImmutable(string $dateTime, string $format = 'd/m/Y H:i:s', string $dateTimeZoneName = 'UTC'): ?DateTimeImmutable
+    public static function stringToDateTimeImmutable(string $dateTime, string $format = 'd/m/Y H:i:s', string $dateTimeZoneName = 'UTC'): ?DateTime
     {
         $date = self::stringToDateTime($dateTime, $format, $dateTimeZoneName);
 

@@ -19,7 +19,7 @@
     background-color: var(--green)!important;
 }
 
-.text-speedtest, .nav-link {
+.text-speedtest {
     color: var(--green-100)!important;
 }
 
