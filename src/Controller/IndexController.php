@@ -11,9 +11,9 @@
 
 namespace App\Controller;
 
-use App\Helper\DateTimeHelper;
 use App\Message\RegisterMessage;
 use App\Repository\ResultRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,12 +24,9 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/', name: 'app_')]
 final class IndexController extends AbstractController
 {
-
     public function __construct(
-            private ResultRepository $repository
-    )
-    {
-        
+        private ResultRepository $repository,
+    ) {
     }
 
     #[Route('', name: 'index', methods: ['GET'])]
@@ -50,26 +47,25 @@ final class IndexController extends AbstractController
         $dias = (int) $request->request->get('dias');
 
         return $this->json([
-                    'message' => 'success',
-                    'results' => $this->repository->findByDias($dias),
+            'message' => 'success',
+            'results' => $this->repository->findByDias($dias),
         ]);
     }
 
     #[Route('/json/detalhe', name: 'json_detalhe', methods: ['POST'])]
     public function jsonDetalhe(Request $request): JsonResponse
     {
-        
         $dateTimeString = $request->request->get('dateTime');
-        
+
         $format = 'j/n/Y g:i:s A';
 
-        $dateTime = \DateTime::createFromFormat($format, $dateTimeString);
+        $dateTime = DateTime::createFromFormat($format, $dateTimeString);
 
         $result = $this->repository->findByDateTime($dateTime);
 
         return $this->json([
-                    'message' => 'success',
-                    'result' => $result
+            'message' => 'success',
+            'result' => $result,
         ]);
     }
 
@@ -79,7 +75,7 @@ final class IndexController extends AbstractController
         $bus->dispatch(new RegisterMessage());
 
         return $this->json([
-                    'message' => 'success'
+            'message' => 'success',
         ]);
     }
 }

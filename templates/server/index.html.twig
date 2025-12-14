@@ -1,0 +1,90 @@
+{# templates/server/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-hdd"></i> Servers</li>
+{% endblock %}
+
+{% block body %}
+    <div class="card shadow">
+        <div class="card-header">
+            <h1 class="h4 m-0">
+                <i class="bi bi-hdd"></i> Servers
+            </h1>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover table-bordered table-striped shadow-sm">
+                <thead>
+                    <tr>
+                        <th scope="col" class="d-table-cell d-xl-none">Server</th>
+                        <th scope="col" class="d-none d-xl-table-cell">#</th>
+                        <th scope="col" class="d-none d-xl-table-cell">Nome</th>
+                        <th scope="col" class="d-none d-xl-table-cell">Localização</th>
+                        <th scope="col" class="d-none d-xl-table-cell">País</th>
+                        <th scope="col" class="d-none d-xl-table-cell">Host</th>
+                        <th scope="col" class="d-none d-xl-table-cell">Porta</th>
+                        <th scope="col" class="d-none d-xl-table-cell">Atualização</th>
+                        <th scope="col" class="d-none d-xl-table-cell text-center">Selecionado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for server in servers %}
+                    <tr>
+                        <td class="d-table-cell d-xl-none">
+                            <p>Id: {{ server.id }}</p>
+                            <p>Nome: {{ server.name }}</p>
+                        </td>
+                        <td class="d-none d-xl-table-cell">{{ server.id }}</td>
+                        <td class="d-none d-xl-table-cell">{{ server.name }}</td>
+                        <td class="d-none d-xl-table-cell">{{ server.location }}</td>
+                        <td class="d-none d-xl-table-cell">{{ server.country }}</td>
+                        <td class="d-none d-xl-table-cell">{{ server.host }}</td>
+                        <td class="d-none d-xl-table-cell">{{ server.port }}</td>
+                        <td class="d-none d-xl-table-cell text-end">
+                            {{ server.updatedAt|default(server.createdAt)|format_datetime(pattern: 'dd/mm/yyyy HH:mm:ss') }}
+                        </td>
+                        <td class="d-none d-xl-table-cell text-center">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input mx-0"
+                                       data-server="{{ server.id }}"
+                                       type="checkbox" 
+                                       role="switch" 
+                                       id="speedtestServer_{{ server.id }}"
+                                       {% if server.selected == true  %}checked{% endif %}
+                                       >
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center">Nenhum registro encontrado</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <nav aria-label="Paginação">
+                <ul class="pagination pagination-sm justify-content-center m-0">
+                    <li class="page-item disabled">
+                        <a class="page-link">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts_footer %}
+    
+    {{ parent() }}
+    <script>
+        const URL_SERVER_SELECTED = "{{ url('app_server_selected') }}";
+    </script>
+    <script src="{{ asset('js/server/index.js') }}"></script>
+{% endblock %}

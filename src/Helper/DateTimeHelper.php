@@ -13,12 +13,10 @@ namespace App\Helper;
 
 use DateTime;
 use DateTimeImmutable;
-use DateTimeInterface;
 use DateTimeZone;
 
 class DateTimeHelper
 {
-
     public static function currentDateTime(?string $dateTimeZoneName = null): DateTime
     {
         $dateTime = new DateTime();
@@ -42,7 +40,7 @@ class DateTimeHelper
         return $date;
     }
 
-    public static function stringToDateTimeImmutable(string $dateTime, string $format = 'd/m/Y H:i:s', string $dateTimeZoneName = 'UTC'): ?DateTime
+    public static function stringToDateTimeImmutable(string $dateTime, string $format = 'd/m/Y H:i:s', string $dateTimeZoneName = 'UTC'): ?DateTimeImmutable
     {
         $date = self::stringToDateTime($dateTime, $format, $dateTimeZoneName);
 

@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/php8.3 /var/www/speedtest/bin/console speedtest:register

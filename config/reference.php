@@ -1,13 +1,6 @@
 <?php
 
-/*
- *     This file is part of Speedtest.
- *
- *     (c) Leonardo Rodrigues Marques <leonardo@rodriguesmarques.com.br>
- *
- *     This source file is subject to the MIT license that is bundled
- *     with this source code in the file LICENSE.
- */
+// This file is auto-generated and is for apps only. Bundles SHOULD NOT rely on its content.
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
@@ -954,7 +947,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         enabled?: bool, // Default: false
  *     },
  *     intl?: bool|array{
- *         enabled?: bool, // Default: false
+ *         enabled?: bool, // Default: true
  *     },
  *     cssinliner?: bool|array{
  *         enabled?: bool, // Default: false
