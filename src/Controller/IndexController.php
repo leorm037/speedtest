@@ -13,7 +13,6 @@ namespace App\Controller;
 
 use App\Message\RegisterMessage;
 use App\Repository\ResultRepository;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,7 +55,7 @@ final class IndexController extends AbstractController
     public function jsonDetalhe(Request $request): JsonResponse
     {
         $id = $request->request->get('id', null);
-        
+
         if (null === $id) {
             return $this->json(['message' => 'error'], Response::HTTP_BAD_REQUEST);
         }

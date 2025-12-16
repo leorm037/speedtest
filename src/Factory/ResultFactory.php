@@ -18,7 +18,6 @@ use DateTimeZone;
 
 class ResultFactory
 {
-
     public static function fromJson(string $json): Result
     {
         $obj = json_decode($json);

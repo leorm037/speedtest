@@ -22,33 +22,31 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ServerController extends AbstractController
 {
     public function __construct(
-            private ServerRepository $repository
-    )
-    {
-
+        private ServerRepository $repository,
+    ) {
     }
-    
+
     #[Route('', name: 'index')]
     public function index(): Response
     {
         return $this->render('server/index.html.twig', [
-            'servers' => $this->repository->list()
+            'servers' => $this->repository->list(),
         ]);
     }
-    
+
     #[Route('/selected', name: 'selected')]
     public function selected(Request $request): JsonResponse
     {
-        $id = intval($request->request->get('id'));
-        
-        $selected = ("true" === $request->request->get('selected')) ? true : false;
-        
+        $id = $request->request->get('id', null);
+
+        $selected = ('true' === $request->request->get('selected')) ? true : false;
+
         if (null === $id) {
             return $this->json(null, Response::HTTP_BAD_REQUEST);
         }
-        
+
         $this->repository->saveSelected($id, $selected);
-        
+
         return $this->json(null, Response::HTTP_OK);
     }
 }

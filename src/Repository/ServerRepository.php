@@ -20,7 +20,6 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ServerRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Server::class);
@@ -42,12 +41,12 @@ class ServerRepository extends ServiceEntityRepository
         if (null !== $speedtestServerSelected) {
             $speedtestServerSelected->setIsSelected(false);
             $this->save($speedtestServerSelected);
-            
+
             if (false == $selected) {
                 return;
             }
         }
-        
+
         /** @var Server $server */
         $server = $this->find($id);
         $server->setIsSelected(true);
@@ -64,6 +63,9 @@ class ServerRepository extends ServiceEntityRepository
                         ->getOneOrNullResult();
     }
 
+    /**
+     * @return Server[]
+     */
     public function list()
     {
         return $this->findBy([], ['name' => 'ASC']);
