@@ -8,9 +8,6 @@ function graphicConstruct(speedtests) {
     
     Array.from(speedtests.results).reverse().map(speed => {
         let data = new Date(speed.timestamp);
-        
-        data.setHours(data.getHours() - 3);
-        
         labels.push(data.toLocaleDateString(LOCALE) + " " + data.toLocaleTimeString(LOCALE));
         downloadBandwidth.push(parseFloat(speed.downloadBandwidth * 8 / 1048576).toFixed());
         uploadBandwidth.push(parseFloat(speed.uploadBandwidth * 8 / 1048576).toFixed());

@@ -14,17 +14,25 @@ namespace App\Factory;
 use App\Entity\Result;
 use App\Entity\Server;
 use DateTime;
+use DateTimeZone;
 
 class ResultFactory
 {
+
     public static function fromJson(string $json): Result
     {
         $obj = json_decode($json);
 
         $result = new Result();
 
+        $timestamp = new DateTime($obj->timestamp);
+
+        $dateTimeZone = new DateTimeZone('America/Sao_Paulo');
+
+        $timestamp->setTimezone($dateTimeZone);
+
         $result
-                ->setTimestamp(new DateTime($obj->timestamp))
+                ->setTimestamp($timestamp)
                 ->setPingJitter($obj->ping->jitter ?? null)
                 ->setPingLatency($obj->ping->latency ?? null)
                 ->setPingLow($obj->ping->low ?? null)
