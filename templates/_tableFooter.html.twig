@@ -1,0 +1,33 @@
+{# template/_tableFooter.html.twig #}
+<div class="card-footer">
+    <div class="row">
+        <div class="col-12 col-sm-3">
+            {#
+            <select name="registros-por-pagina" id="registros-por-pagina" class="form-select form-select-sm" aria-label="Quantidade de registro por página"{{ paginacao is empty or paginacao.count == 0 ? ' disabled' }}>
+                <option value="10"{{ app.request.query.get('registros-por-pagina') == 10 ? ' selected' : '' }}>10</option>
+                <option value="25"{{ app.request.query.get('registros-por-pagina') == 25 ? ' selected' : '' }}>25</option>
+                <option value="50"{{ app.request.query.get('registros-por-pagina') == 50 ? ' selected' : '' }}>50</option>
+                <option value="100"{{ app.request.query.get('registros-por-pagina') == 100 ? ' selected' : '' }}>100</option>
+            </select>
+            #}
+        </div>
+        <div class="col-12 col-sm-6 text-center">
+            <nav aria-label="Paginação">
+                <ul class="pagination pagination-sm justify-content-center m-0">
+                    <li class="page-item disabled">
+                        <a class="page-link">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-12 col-sm-3 mt-1 text-sm-end text-center">
+            {{ registros|default(0)|number_format(0,',','.') }} registro(s).
+        </div>
+    </div>
+</div>

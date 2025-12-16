@@ -66,7 +66,7 @@ class ServerRepository extends ServiceEntityRepository
 
     public function list()
     {
-        return $this->findBy([], ['name' => 'DESC']);
+        return $this->findBy([], ['name' => 'ASC']);
     }
 
     //    /**

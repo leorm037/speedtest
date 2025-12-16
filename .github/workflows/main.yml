@@ -10,44 +10,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: "Obter o código"
-        uses: actions/checkout@v4
-      
-      - name: "Limpar diretório de deploy"
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.TUX_HOST }}
-          port: ${{ secrets.TUX_SSH_PORT }}
-          username: ${{ secrets.TUX_USERNAME }}
-          key: ${{ secrets.TUX_SSH_PRIVATE_KEY }}
-          script: |
-            rm -Rf /deploy/speedtest/assets
-            rm -Rf /deploy/speedtest/bin
-            rm -Rf /deploy/speedtest/config
-            rm -Rf /deploy/speedtest/cron
-            rm -Rf /deploy/speedtest/database
-            rm -Rf /deploy/speedtest/docker
-            rm -Rf /deploy/speedtest/migrations
-            rm -Rf /deploy/speedtest/nbproject
-            rm -Rf /deploy/speedtest/public
-            rm -Rf /deploy/speedtest/src
-            rm -Rf /deploy/speedtest/templates
-            rm -Rf /deploy/speedtest/tests
-            rm -Rf /deploy/speedtest/translations
-            rm -Rf /deploy/speedtest/var
-            rm -Rf /deploy/speedtest/vendor
-      
-      - name: "Copiar código"
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.TUX_HOST }}
-          port: ${{ secrets.TUX_SSH_PORT }}
-          username: ${{ secrets.TUX_USERNAME }}
-          key: ${{ secrets.TUX_SSH_PRIVATE_KEY }}
-          source: "."
-          target: "/deploy/speedtest"
-          
-      - name: "Construção da aplicação"
+      - name: "Deploy"
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.TUX_HOST }}
@@ -56,12 +19,4 @@ jobs:
           port: ${{ secrets.TUX_SSH_PORT }}
           script: |            
             cd /deploy/speedtest
-            APP_ENV=prod composer install --no-dev --no-progress -a -o
-            APP_ENV=prod composer dump-env prod
-            sudo rm -Rf /var/www/speedtest
-            sudo cp -a /deploy/speedtest/. /var/www/speedtest/
-            cd /var/www/speedtest
-            APP_ENV=prod sudo php bin/console cache:clear
-            sudo rm -Rf public/assets
-            APP_ENV=prod sudo php bin/console asset-map:compile
-            sudo chown -R www-data: .
+            time ./deploy.sh
