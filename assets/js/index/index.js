@@ -4,12 +4,14 @@ function graphicConstruct(speedtests) {
     var labels = [];
     var downloadBandwidth = [];
     var uploadBandwidth = [];
-
+    var id = [];
+    
     Array.from(speedtests.results).reverse().map(speed => {
         let data = new Date(speed.timestamp);
-        labels.push(data.toLocaleDateString() + " " + data.toLocaleTimeString());
+        labels.push(data.toLocaleDateString(LOCALE) + " " + data.toLocaleTimeString(LOCALE));
         downloadBandwidth.push(parseFloat(speed.downloadBandwidth * 8 / 1048576).toFixed());
         uploadBandwidth.push(parseFloat(speed.uploadBandwidth * 8 / 1048576).toFixed());
+        id.push(speed.id);
     });
 
     var data = {
@@ -27,6 +29,11 @@ function graphicConstruct(speedtests) {
                 borderColor: 'rgb(255,99,132)',
                 fill: true,
                 data: uploadBandwidth
+            },
+            {
+                label: 'id',
+                data: id,
+                hidden: true
             }
         ]
     };
@@ -64,8 +71,8 @@ function graphicConstruct(speedtests) {
                 modalResultUrl = $('#modalResultUrl').html(TAG_SPINNER);                        //22
 
                 $('#modalDetalhe').modal('show');
-
-                $.post(URL_JSON_DETALHE, {dateTime: graphic.data.labels[element[0].index]})
+                
+                $.post(URL_JSON_DETALHE, {id: graphic.data.datasets[2].data[element[0].index]})
                         .done(function (data) {                            
                             if (data.message === 'success') {
                                 let d = new Date(data.result.timestamp);
@@ -95,14 +102,14 @@ function graphicConstruct(speedtests) {
                             }
                         }).fail(function(data,status,j){
                             console.log(data,status,j);
+                            $('#modalDetalhe').modal('hide');
+                            alert("Erro ao tentar recuperar os dados.");
                         });
             },
             scales: {
                 y: {
                     grid: {
                         lineWidth: function (context) {
-                            console.log();
-
                             if (context.tick.value === MAXSPEEDDOWNLOADMBPS || 
                                     context.tick.value === MAXSPEEDUPLOADMBPS) {
                                 return 3;

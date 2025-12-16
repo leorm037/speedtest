@@ -55,13 +55,13 @@ final class IndexController extends AbstractController
     #[Route('/json/detalhe', name: 'json_detalhe', methods: ['POST'])]
     public function jsonDetalhe(Request $request): JsonResponse
     {
-        $dateTimeString = $request->request->get('dateTime');
+        $id = $request->request->get('id', null);
+        
+        if (null === $id) {
+            return $this->json(['message' => 'error'], Response::HTTP_BAD_REQUEST);
+        }
 
-        $format = 'j/n/Y g:i:s A';
-
-        $dateTime = DateTime::createFromFormat($format, $dateTimeString);
-
-        $result = $this->repository->findByDateTime($dateTime);
+        $result = $this->repository->find($id);
 
         return $this->json([
             'message' => 'success',
