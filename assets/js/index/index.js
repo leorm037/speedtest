@@ -8,7 +8,10 @@ function graphicConstruct(speedtests) {
     
     Array.from(speedtests.results).reverse().map(speed => {
         let data = new Date(speed.timestamp);
-        labels.push(data.toLocaleDateString(LOCALE, {timeZone: "America/Sao_Paulo"}) + " " + data.toLocaleTimeString(LOCALE, {timeZone: "America/Sao_Paulo"}));
+        
+        data.setHours(data.getHours() - 3);
+        
+        labels.push(data.toLocaleDateString(LOCALE) + " " + data.toLocaleTimeString(LOCALE));
         downloadBandwidth.push(parseFloat(speed.downloadBandwidth * 8 / 1048576).toFixed());
         uploadBandwidth.push(parseFloat(speed.uploadBandwidth * 8 / 1048576).toFixed());
         id.push(speed.id);
