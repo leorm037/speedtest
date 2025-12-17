@@ -70,18 +70,18 @@ class ResultFactory
                 ->setCountry($obj->server->country ?? null)
                 ->setIsSelected(false)
         ;
-        
+
         $url = str_replace(
-                "https://www.speedtest.net/result/",
-                "https://www.speedtest.net/pt/result/",
-                $obj->result->url
+            'https://www.speedtest.net/result/',
+            'https://www.speedtest.net/pt/result/',
+            $obj->result->url
         );
 
         $result
                 ->setServer($server)
                 ->setServerIp($obj->server->ip ?? null)
                 ->setResultId($obj->result->id ?? null)
-                ->setResultUrl($url ?? null)
+                ->setResultUrl($url)
                 ->setResultPersisted($obj->result->persisted ?? null)
         ;
 
