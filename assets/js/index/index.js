@@ -9,8 +9,8 @@ function graphicConstruct(speedtests) {
     Array.from(speedtests.results).reverse().map(speed => {
         let data = new Date(speed.timestamp);
         labels.push(data.toLocaleDateString(LOCALE) + " " + data.toLocaleTimeString(LOCALE));
-        downloadBandwidth.push(parseFloat(speed.downloadBandwidth * 8 / 1048576).toFixed());
-        uploadBandwidth.push(parseFloat(speed.uploadBandwidth * 8 / 1048576).toFixed());
+        downloadBandwidth.push(parseFloat(speed.downloadBandwidth * 8 / 1000000).toFixed(2));
+        uploadBandwidth.push(parseFloat(speed.uploadBandwidth * 8 / 1000000).toFixed(2));
         id.push(speed.id);
     });
 
@@ -29,11 +29,6 @@ function graphicConstruct(speedtests) {
                 borderColor: 'rgb(255,99,132)',
                 fill: true,
                 data: uploadBandwidth
-            },
-            {
-                label: 'id',
-                data: id,
-                hidden: true
             }
         ]
     };
@@ -72,7 +67,7 @@ function graphicConstruct(speedtests) {
 
                 $('#modalDetalhe').modal('show');
                 
-                $.post(URL_JSON_DETALHE, {id: graphic.data.datasets[2].data[element[0].index]})
+                $.post(URL_JSON_DETALHE, {id: id[element[0].index]})
                         .done(function (data) {                            
                             if (data.message === 'success') {
                                 let d = new Date(data.result.timestamp);
@@ -80,10 +75,10 @@ function graphicConstruct(speedtests) {
                                 modalDateTime.text(d.toLocaleDateString(LOCALE) + " " + d.toLocaleTimeString(LOCALE));                                                                                                                          //01
                                 modalPingJitter.text(parseFloat(data.result.pingJitter).toLocaleString(LOCALE) + " ms");                                 //02
                                 modalPingLatency.text(parseFloat(data.result.pingLatency).toLocaleString(LOCALE) + " ms");                               //03
-                                modalDownloadBandwidth.text(parseFloat(data.result.downloadBandwidth * 8 / 1048576).toLocaleString(LOCALE) + " Mbps");   //04
+                                modalDownloadBandwidth.text(parseFloat(data.result.downloadBandwidth * 8 / 1000000).toLocaleString(LOCALE) + " Mbps");   //04
                                 modalDownloadBytes.text(parseFloat(data.result.downloadBytes).toLocaleString(LOCALE) + " bytes");                        //05
                                 modalDownloadElapsed.text(parseFloat(data.result.downloadElapsed).toLocaleString(LOCALE));                               //06
-                                modalUploadBandwidth.text(parseFloat(data.result.uploadBandwidth * 8 / 1048576).toLocaleString(LOCALE) + " Mbps");       //07
+                                modalUploadBandwidth.text(parseFloat(data.result.uploadBandwidth * 8 / 1000000).toLocaleString(LOCALE) + " Mbps");       //07
                                 modalUploadBytes.text(parseFloat(data.result.uploadBytes).toLocaleString(LOCALE) + " bytes");                            //08
                                 modalUploadElapsed.text(parseFloat(data.result.uploadElapsed).toLocaleString(LOCALE));                                   //09
                                 modalPacketLoss.text(parseFloat(data.result.packetLoss).toLocaleString(LOCALE) + "%");                                   //10
@@ -160,7 +155,7 @@ function graphicConstruct(speedtests) {
                             return " " +
                                     tooltipItems.dataset.label +
                                     ": " +
-                                    tooltipItems.raw + " Mbps";
+                                    Number(tooltipItems.raw).toLocaleString(LOCALE) + " Mbps";
                         }
                     }
                 }
