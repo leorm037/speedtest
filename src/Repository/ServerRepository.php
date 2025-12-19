@@ -88,6 +88,29 @@ class ServerRepository extends ServiceEntityRepository
         return new PaginacaoDTO(new Paginator($query), $registrosPorPagina, $paginaAtual);
     }
 
+    public function locations()
+    {
+        return $this->createQueryBuilder('s')
+                        ->select('DISTINCT s.location')
+                        ->orderBy('s.location', 'ASC')
+                        ->getQuery()
+                        ->getSingleColumnResult()
+        ;
+    }
+
+    /**
+     * 
+     * @return array<int,string>
+     */
+    public function countries()
+    {
+        return $this->createQueryBuilder('s')
+                        ->select('DISTINCT s.country')
+                        ->orderBy('s.country', 'ASC')
+                        ->getQuery()
+                        ->getSingleColumnResult();
+    }
+
     //    /**
     //     * @return Server[] Returns an array of Server objects
     //     */

@@ -180,3 +180,4 @@ function graphicShow(dias) {
         graphicConstruct(data);
     });
 }
+

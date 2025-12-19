@@ -12,7 +12,6 @@
 namespace App\Controller;
 
 use App\Entity\Server;
-use App\Form\ServerFilterFormType;
 use App\Repository\ServerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -36,12 +35,11 @@ final class ServerController extends AbstractController
     {
         $serverFilter = new Server();
 
-        $form = $this->createForm(ServerFilterFormType::class, $serverFilter);
-        $form->handleRequest($request);
-
         return $this->render('server/index.html.twig', [
                     'servers' => $this->repository->list($serverFilter),
-                    'form' => $form
+                    'serverFilter' => $serverFilter,
+                    'locations' => $this->repository->locations(),
+                    'countries' => $this->repository->countries()
         ]);
     }
 
