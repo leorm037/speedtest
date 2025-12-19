@@ -11,6 +11,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Server;
+use App\Form\ServerFilterFormType;
 use App\Repository\ServerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,16 +23,25 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/server', name: 'app_server_')]
 final class ServerController extends AbstractController
 {
+
     public function __construct(
-        private ServerRepository $repository,
-    ) {
+            private ServerRepository $repository,
+    )
+    {
+        
     }
 
     #[Route('', name: 'index')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $serverFilter = new Server();
+
+        $form = $this->createForm(ServerFilterFormType::class, $serverFilter);
+        $form->handleRequest($request);
+
         return $this->render('server/index.html.twig', [
-            'servers' => $this->repository->list(),
+                    'servers' => $this->repository->list($serverFilter),
+                    'form' => $form
         ]);
     }
 

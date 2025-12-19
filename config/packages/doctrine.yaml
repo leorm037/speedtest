@@ -45,6 +45,10 @@ doctrine:
                         pool: doctrine.second_level_cache_read_write_pool
                     type: filelock
                     
+        dql:
+            string_functions:
+                 collate: DoctrineExtensions\Query\Mysql\Collate
+                    
         controller_resolver:
             # Since doctrine/doctrine-bundle 3.1: The "auto_mapping" option is deprecated and will be removed in DoctrineBundle 4.0, as it only accepts `false` since 3.0.
             # auto_mapping: false

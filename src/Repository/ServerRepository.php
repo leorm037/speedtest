@@ -11,8 +11,10 @@
 
 namespace App\Repository;
 
+use App\DTO\PaginacaoDTO;
 use App\Entity\Server;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,6 +22,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ServerRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Server::class);
@@ -66,9 +69,23 @@ class ServerRepository extends ServiceEntityRepository
     /**
      * @return Server[]
      */
-    public function list()
+    public function list(Server $serverFilter, int $registrosPorPagina = 10, int $paginaAtual = 1)
     {
-        return $this->findBy([], ['name' => 'ASC']);
+        $pagina = ($paginaAtual - 1) * $registrosPorPagina;
+
+        $query = $this->createQueryBuilder('s')
+                ->setFirstResult($pagina)
+                ->setMaxResults($registrosPorPagina)
+        ;
+
+        if ($serverFilter->getName()) {
+            $query
+                    ->andWhere('s.name LIKE :name')
+                    ->setParameter('name', '%' . $serverFilter->getName() . '%')
+            ;
+        }
+
+        return new PaginacaoDTO(new Paginator($query), $registrosPorPagina, $paginaAtual);
     }
 
     //    /**

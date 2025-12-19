@@ -104,11 +104,22 @@ class Server extends AbstractEntity
         return $this;
     }
 
+    /**
+     * Nome da Empresa que forneceu o serviço de teste de velocidade
+     * @example Claro Móvel
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * Nome da Empresa que forneceu o serviço de teste de velocidade
+     * @example Claro Movel
+     * @param string $name
+     * @return Server
+     */
     public function setName(string $name): static
     {
         $this->name = $name;

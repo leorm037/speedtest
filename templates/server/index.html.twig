@@ -6,11 +6,35 @@
 {% endblock %}
 
 {% block body %}
+    {{ form_start(form, {'attr': {'data-loading': 'true'}}) }}
     <div class="card shadow">
         <div class="card-header">
             <h1 class="h4 m-0">
                 <i class="bi bi-hdd"></i> Servers
             </h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-3">
+                        {{ form_label(form.name) }}
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="bi bi-building"></i></div>
+                            {{ form_widget(form.name) }}
+                        </div>
+                        {{ form_errors(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+                </div>
+                <div class="col-12 d-flex justify-content-end align-items-end">
+                    <div>
+                        <a class="btn btn-secondary btn-sm bg-gradient shadow-sm me-1" href="{{ path('app_server_index') }}"><i class="bi bi-eraser"></i> Limpar filtro</a>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-sm bg-gradient shadow-sm"><i class="bi bi-funnel"></i> Filtrar</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <table class="table table-hover table-bordered table-striped shadow-sm">
@@ -31,8 +55,13 @@
                     {% for server in servers %}
                     <tr>
                         <td class="d-table-cell d-xl-none">
-                            <p>Id: {{ server.id }}</p>
-                            <p>Nome: {{ server.name }}</p>
+                            <p class="m-0"><strong>Id:</strong> {{ server.id }}</p>
+                            <p class="m-0"><strong>Nome:</strong> {{ server.name }}</p>
+                            <p class="m-0"><strong>Localização:</strong> {{ server.location }}</p>
+                            <p class="m-0"><strong>País:</strong> {{ server.country }}</p>
+                            <p class="m-0"><strong>Host:</strong> {{ server.host }}</p>
+                            <p class="m-0"><strong>Porta:</strong> {{ server.port }}</p>
+                            <p class="m-0"><strong>Atualização:</strong> {{ server.updatedAt|default(server.createdAt)|format_datetime(pattern: 'dd/mm/yyyy HH:mm:ss') }}</p>
                         </td>
                         <td class="d-none d-xl-table-cell">{{ server.id }}</td>
                         <td class="d-none d-xl-table-cell">{{ server.name }}</td>
@@ -65,6 +94,7 @@
         </div>
         {{ include('_tableFooter.html.twig',{'registros':servers|length}) }}
     </div>
+    {{ form_end(form) }}
 {% endblock %}
 {% block javascripts_footer %}
     
