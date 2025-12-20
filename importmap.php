@@ -1,7 +1,7 @@
 <?php
 
 /*
- *     This file is part of Speedtest.
+ *     This file is part of Temperature.
  *
  *     (c) Leonardo Rodrigues Marques <leonardo@rodriguesmarques.com.br>
  *
@@ -9,4 +9,18 @@
  *     with this source code in the file LICENSE.
  */
 
-return [];
+return [
+    'app' => [
+        'path' => './assets/app.js',
+        'entrypoint' => true,
+    ],
+    '@hotwired/stimulus' => [
+        'version' => '3.2.2',
+    ],
+    '@symfony/stimulus-bundle' => [
+        'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
+    ],
+    '@hotwired/turbo' => [
+        'version' => '7.3.0',
+    ],
+];

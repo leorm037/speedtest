@@ -45,6 +45,8 @@ class SpeedtestRegisterCommand extends Command
 
         if ($result instanceof Result) {
             $io->success('Medição realizada com sucesso');
+            $io->text("Nome: {$result->getServer()->getName()}");
+            $io->text("Isp:  {$result->getIsp()}");
 
             return Command::SUCCESS;
         }

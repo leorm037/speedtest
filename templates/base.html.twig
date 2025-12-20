@@ -17,11 +17,11 @@
 
         {% block stylesheets %}
             <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('styles/app.css') }}" rel="stylesheet">
             <link href="{{ asset('bootstrap-icons/bootstrap-icons.min.css') }}" rel="stylesheet">
         {% endblock %}
 
         {% block javascripts_header %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
     <body class="d-flex flex-column min-vh-100">

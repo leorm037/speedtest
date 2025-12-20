@@ -137,7 +137,7 @@
                 </tbody>
             </table>
         </div>
-        {{ include('_tableFooter.html.twig',{'registros':servers|length}) }}
+        {{ include('_tableFooter.html.twig',{'paginacao':servers}) }}
     </div>
 {% endblock %}
 {% block javascripts_footer %}
