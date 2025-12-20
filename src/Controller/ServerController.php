@@ -35,7 +35,7 @@ final class ServerController extends AbstractController
         $filter_host = $request->query->get('filter_host', null);
         $filter_port = $request->query->getInt('filter_port', 0);
 
-        $registrosPorPagina = $request->query->getInt('registrosPorPagina', 10);
+        $registrosPorPagina = $request->query->getInt('registros-por-pagina', 10);
         $paginaAtual = $request->query->getInt('paginaAtual', 1);
 
         $servers = $this->repository->list(
@@ -56,7 +56,7 @@ final class ServerController extends AbstractController
             'filter_host' => $filter_host,
             'filter_port' => $filter_port,
             'locations' => $this->repository->locations(),
-            'countries' => $this->repository->countries(),
+            'countries' => $this->repository->countries()
         ]);
     }
 
