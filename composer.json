@@ -118,13 +118,13 @@
             "@code:fix",
             "@code:analyze"
         ],
-        "code:deploy": {
-            "ux:icon:warm-cache --ansi": "symfony-cmd",
-            "importmap:update --ansi": "symfony-cmd",
-            "asset-map:compile --ansi": "symfony-cmd",
-            "cache:warmup --ansi": "symfony-cmd",
-            "doctrine:migration:migrate --no-interaction --ansi": "symfony-cmd"
-        }
+        "code:deploy": [
+            "php bin/console ux:icon:warm-cache --ansi",
+            "php bin/console importmap:update --ansi",
+            "php bin/console asset-map:compile --ansi",
+            "php bin/console cache:warmup --ansi",
+            "php bin/console doctrine:migration:migrate --no-interaction --ansi"
+        ]
     },
     "scripts-descriptions": {
         "code:ci": "Realiza analise do código fonte e testes automatizados."
