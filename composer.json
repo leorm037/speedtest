@@ -98,6 +98,8 @@
         ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "importmap:install": "symfony-cmd",
             "requirements-checker": "script"
         },
         "post-install-cmd": [
@@ -115,7 +117,14 @@
         "code:ci": [
             "@code:fix",
             "@code:analyze"
-        ]
+        ],
+        "code:deploy": {
+            "ux:icon:warm-cache --ansi": "symfony-cmd",
+            "importmap:update --ansi": "symfony-cmd",
+            "asset-map:compile --ansi": "symfony-cmd",
+            "cache:warmup --ansi": "symfony-cmd",
+            "doctrine:migration:migrate --no-interaction --ansi": "symfony-cmd"
+        }
     },
     "scripts-descriptions": {
         "code:ci": "Realiza analise do código fonte e testes automatizados."
