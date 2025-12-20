@@ -11,7 +11,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Server;
 use App\Repository\ServerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,11 +32,32 @@ final class ServerController extends AbstractController
     #[Route('', name: 'index')]
     public function index(Request $request): Response
     {
-        $serverFilter = new Server();
-
+        $filter_name = $request->query->get('filter_name', null);
+        $filter_location = $request->query->get('filter_location', null);
+        $filter_country = $request->query->get('filter_country', null);
+        $filter_host = $request->query->get('filter_host', null);
+        $filter_port = $request->query->getInt('filter_port', 0);
+        
+        $registrosPorPagina = $request->query->getInt('registrosPorPagina', 10);
+        $paginaAtual = $request->query->getInt('paginaAtual', 1);
+        
+        $servers = $this->repository->list(
+                $filter_name,
+                $filter_location,
+                $filter_country,
+                $filter_host,
+                $filter_port,
+                $registrosPorPagina,
+                $paginaAtual
+        );
+        
         return $this->render('server/index.html.twig', [
-                    'servers' => $this->repository->list($serverFilter),
-                    'serverFilter' => $serverFilter,
+                    'servers' => $servers,
+                    'filter_name' => $filter_name,
+                    'filter_location' => $filter_location,
+                    'filter_country' => $filter_country,
+                    'filter_host' => $filter_host,
+                    'filter_port' => $filter_port,
                     'locations' => $this->repository->locations(),
                     'countries' => $this->repository->countries()
         ]);

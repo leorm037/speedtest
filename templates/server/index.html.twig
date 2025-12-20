@@ -20,7 +20,7 @@
                             <label for="filter_name" class="form-label">Nome</label>
                             <div class="input-group">
                                 <div class="input-group-text"><i class="bi bi-building"></i></div>
-                                <input type="text" name="filter_name" value="{{ serverFilter.name }}" class="form-control" id="filter_name" aria-label="Nome">
+                                <input type="text" name="filter_name" value="{{ filter_name }}" class="form-control" id="filter_name" aria-label="Nome">
                             </div>
                         </div>
                     </div>
@@ -30,9 +30,9 @@
                             <div class="input-group">
                                 <div class="input-group-text"><i class="bi bi-pin-map"></i></div>
                                 <select name="filter_location" id="filter_location" class="form-select" aria-label="Localização" aria-describedby="Filtro por localização">
-                                    <option value{% if serverFilter.location is null %} selected{% endif %}>Selecione uma localização</option>
+                                    <option value{% if filter_location is null %} selected{% endif %}>Selecione uma localização</option>
                                     {% for location in locations %}
-                                        <option value="{{ location }}"{% if location == serverFilter.location %} selected{% endif %}>{{ location }}</option>
+                                        <option value="{{ location }}"{% if location == filter_location %} selected{% endif %}>{{ location }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -44,9 +44,9 @@
                             <div class="input-group">
                                 <div class="input-group-text"><i class="bi bi-globe-americas"></i></div>
                                 <select name="filter_country" id="filter_country" class="form-select" aria-label="País" aria-describedby="Filtro por país">
-                                    <option value{% if serverFilter.country is null %} selected{% endif %}>Selecione um país</option>
+                                    <option value{% if filter_country is null %} selected{% endif %}>Selecione um país</option>
                                     {% for country in countries %}
-                                        <option value="{{ country }}"{% if country == serverFilter.country %} selected{% endif %}>{{ country }}</option>
+                                        <option value="{{ country }}"{% if country == filter_country %} selected{% endif %}>{{ country }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -57,7 +57,7 @@
                             <label for="filter_host" class="form-label">Host</label>
                             <div class="input-group">
                                 <div class="input-group-text"><i class="bi bi-pc"></i></div>
-                                <input type="text" name="filter_host" value="{{ serverFilter.host }}" class="form-control" id="filter_name" aria-label="Nome">
+                                <input type="text" name="filter_host" value="{{ filter_host }}" class="form-control" id="filter_name" aria-label="Nome">
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                             <label for="filter_port" class="form-label">Porta</label>
                             <div class="input-group">
                                 <div class="input-group-text"><i class="bi bi-ethernet"></i></div>
-                                <input type="text" name="filter_port value="{{ serverFilter.port }}" class="form-control" id="filter_name" aria-label="Nome">
+                                <input type="text" name="filter_port value="{{ filter_port }}" class="form-control" id="filter_name" aria-label="Nome">
                             </div>
                         </div>
                     </div>

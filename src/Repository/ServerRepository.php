@@ -69,7 +69,15 @@ class ServerRepository extends ServiceEntityRepository
     /**
      * @return Server[]
      */
-    public function list(Server $serverFilter, int $registrosPorPagina = 10, int $paginaAtual = 1)
+    public function list(
+            string $name = null,
+            string $location = null,
+            string $country = null,
+            string $host = null,
+            int $port = 0,
+            int $registrosPorPagina = 10,
+            int $paginaAtual = 1
+    )
     {
         $pagina = ($paginaAtual - 1) * $registrosPorPagina;
 
@@ -78,10 +86,38 @@ class ServerRepository extends ServiceEntityRepository
                 ->setMaxResults($registrosPorPagina)
         ;
 
-        if ($serverFilter->getName()) {
+        if ($name) {
             $query
                     ->andWhere('s.name LIKE :name')
-                    ->setParameter('name', '%' . $serverFilter->getName() . '%')
+                    ->setParameter('name', '%' . $name . '%')
+            ;
+        }
+        
+        if ($location) {
+            $query
+                    ->andWhere('s.location = :location')
+                    ->setParameter('location', $location)
+            ;
+        }
+        
+        if ($country) {
+            $query
+                    ->andWhere('s.country = :name')
+                    ->setParameter('country', $country)
+            ;
+        }
+        
+        if ($host) {
+            $query
+                    ->andWhere('s.host LIKE :host')
+                    ->setParameter('host', '%' . $host . '%')
+            ;
+        }
+        
+        if ($port) {
+            $query
+                    ->andWhere('s.port = :port')
+                    ->setParameter('port', $port)
             ;
         }
 
