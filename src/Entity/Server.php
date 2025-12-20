@@ -105,9 +105,9 @@ class Server extends AbstractEntity
     }
 
     /**
-     * Nome da Empresa que forneceu o serviço de teste de velocidade
+     * Nome da Empresa que forneceu o serviço de teste de velocidade.
+     *
      * @example Claro Móvel
-     * @return string|null
      */
     public function getName(): ?string
     {
@@ -115,10 +115,9 @@ class Server extends AbstractEntity
     }
 
     /**
-     * Nome da Empresa que forneceu o serviço de teste de velocidade
+     * Nome da Empresa que forneceu o serviço de teste de velocidade.
+     *
      * @example Claro Movel
-     * @param string $name
-     * @return Server
      */
     public function setName(string $name): static
     {

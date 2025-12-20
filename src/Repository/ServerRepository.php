@@ -22,7 +22,6 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ServerRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Server::class);
@@ -67,18 +66,17 @@ class ServerRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Server[]
+     * @return PaginacaoDTO
      */
     public function list(
-            string $name = null,
-            string $location = null,
-            string $country = null,
-            string $host = null,
-            int $port = 0,
-            int $registrosPorPagina = 10,
-            int $paginaAtual = 1
-    )
-    {
+        ?string $name = null,
+        ?string $location = null,
+        ?string $country = null,
+        ?string $host = null,
+        int $port = 0,
+        int $registrosPorPagina = 10,
+        int $paginaAtual = 1,
+    ) {
         $pagina = ($paginaAtual - 1) * $registrosPorPagina;
 
         $query = $this->createQueryBuilder('s')
@@ -89,31 +87,31 @@ class ServerRepository extends ServiceEntityRepository
         if ($name) {
             $query
                     ->andWhere('s.name LIKE :name')
-                    ->setParameter('name', '%' . $name . '%')
+                    ->setParameter('name', '%'.$name.'%')
             ;
         }
-        
+
         if ($location) {
             $query
                     ->andWhere('s.location = :location')
                     ->setParameter('location', $location)
             ;
         }
-        
+
         if ($country) {
             $query
                     ->andWhere('s.country = :name')
                     ->setParameter('country', $country)
             ;
         }
-        
+
         if ($host) {
             $query
                     ->andWhere('s.host LIKE :host')
-                    ->setParameter('host', '%' . $host . '%')
+                    ->setParameter('host', '%'.$host.'%')
             ;
         }
-        
+
         if ($port) {
             $query
                     ->andWhere('s.port = :port')
@@ -124,6 +122,9 @@ class ServerRepository extends ServiceEntityRepository
         return new PaginacaoDTO(new Paginator($query), $registrosPorPagina, $paginaAtual);
     }
 
+    /**
+     * @return array<int,string>
+     */
     public function locations()
     {
         return $this->createQueryBuilder('s')
@@ -135,7 +136,6 @@ class ServerRepository extends ServiceEntityRepository
     }
 
     /**
-     * 
      * @return array<int,string>
      */
     public function countries()

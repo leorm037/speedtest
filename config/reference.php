@@ -1,6 +1,13 @@
 <?php
 
-// This file is auto-generated and is for apps only. Bundles SHOULD NOT rely on its content.
+/*
+ *     This file is part of Speedtest.
+ *
+ *     (c) Leonardo Rodrigues Marques <leonardo@rodriguesmarques.com.br>
+ *
+ *     This source file is subject to the MIT license that is bundled
+ *     with this source code in the file LICENSE.
+ */
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 

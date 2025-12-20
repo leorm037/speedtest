@@ -1,7 +1,7 @@
 <?php
 
 /*
- *     This file is part of Bolão.
+ *     This file is part of Speedtest.
  *
  *     (c) Leonardo Rodrigues Marques <leonardo@rodriguesmarques.com.br>
  *
@@ -22,19 +22,16 @@ use Traversable;
  */
 class PaginacaoDTO implements Countable, IteratorAggregate
 {
-
     private int $paginasPorBloco = 3;
 
     /**
      * @param Paginator<mixed> $paginator
      */
     public function __construct(
-            private Paginator $paginator,
-            private int $registrosPorPagina,
-            private int $paginaAtual,
-    )
-    {
-        
+        private Paginator $paginator,
+        private int $registrosPorPagina,
+        private int $paginaAtual,
+    ) {
     }
 
     public function count(): int

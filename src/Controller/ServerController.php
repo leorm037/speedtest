@@ -21,12 +21,9 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/server', name: 'app_server_')]
 final class ServerController extends AbstractController
 {
-
     public function __construct(
-            private ServerRepository $repository,
-    )
-    {
-        
+        private ServerRepository $repository,
+    ) {
     }
 
     #[Route('', name: 'index')]
@@ -37,29 +34,29 @@ final class ServerController extends AbstractController
         $filter_country = $request->query->get('filter_country', null);
         $filter_host = $request->query->get('filter_host', null);
         $filter_port = $request->query->getInt('filter_port', 0);
-        
+
         $registrosPorPagina = $request->query->getInt('registrosPorPagina', 10);
         $paginaAtual = $request->query->getInt('paginaAtual', 1);
-        
+
         $servers = $this->repository->list(
-                $filter_name,
-                $filter_location,
-                $filter_country,
-                $filter_host,
-                $filter_port,
-                $registrosPorPagina,
-                $paginaAtual
+            $filter_name,
+            $filter_location,
+            $filter_country,
+            $filter_host,
+            $filter_port,
+            $registrosPorPagina,
+            $paginaAtual
         );
-        
+
         return $this->render('server/index.html.twig', [
-                    'servers' => $servers,
-                    'filter_name' => $filter_name,
-                    'filter_location' => $filter_location,
-                    'filter_country' => $filter_country,
-                    'filter_host' => $filter_host,
-                    'filter_port' => $filter_port,
-                    'locations' => $this->repository->locations(),
-                    'countries' => $this->repository->countries()
+            'servers' => $servers,
+            'filter_name' => $filter_name,
+            'filter_location' => $filter_location,
+            'filter_country' => $filter_country,
+            'filter_host' => $filter_host,
+            'filter_port' => $filter_port,
+            'locations' => $this->repository->locations(),
+            'countries' => $this->repository->countries(),
         ]);
     }
 
