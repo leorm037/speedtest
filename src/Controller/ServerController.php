@@ -36,7 +36,7 @@ final class ServerController extends AbstractController
         $filter_port = $request->query->getInt('filter_port', 0);
 
         $registrosPorPagina = $request->query->getInt('registros-por-pagina', 10);
-        $paginaAtual = $request->query->getInt('paginaAtual', 1);
+        $paginaAtual = $request->query->getInt('pagina', 1);
 
         $servers = $this->repository->list(
             $filter_name,
