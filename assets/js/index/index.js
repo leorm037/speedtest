@@ -71,7 +71,7 @@ function graphicConstruct(speedtests) {
                         .done(function (data) {                            
                             if (data.message === 'success') {
                                 let d = new Date(data.result.timestamp);
-                                console.log(data.result.timestamp);
+                                
                                 modalDateTime.text(d.toLocaleDateString(LOCALE) + " " + d.toLocaleTimeString(LOCALE));                                                                                                                          //01
                                 modalPingJitter.text(parseFloat(data.result.pingJitter).toLocaleString(LOCALE) + " ms");                                 //02
                                 modalPingLatency.text(parseFloat(data.result.pingLatency).toLocaleString(LOCALE) + " ms");                               //03
