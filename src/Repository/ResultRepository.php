@@ -42,7 +42,7 @@ class ResultRepository extends ServiceEntityRepository
      */
     public function findByDias(int $dias)
     {
-        $date = DateTimeHelper::currentDateTime('UCT');
+        $date = DateTimeHelper::currentDateTime('America/Sao_Paulo');
         $date->sub(DateInterval::createFromDateString("{$dias} day"));
 
         $dateFormat = $date->format('Y-m-d H:i:s');

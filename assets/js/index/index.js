@@ -7,8 +7,8 @@ function graphicConstruct(speedtests) {
     var id = [];
     
     Array.from(speedtests.results).reverse().map(speed => {
-        let data = new Date(speed.timestamp);
-        labels.push(data.toLocaleDateString(LOCALE) + " " + data.toLocaleTimeString(LOCALE));
+        let dateTimestamp = new Date(speed.timestamp);
+        labels.push(dateTimestamp.toLocaleDateString(LOCALE) + " " + dateTimestamp.toLocaleTimeString(LOCALE));
         downloadBandwidth.push(parseFloat(speed.downloadBandwidth * 8 / 1000000).toFixed(2));
         uploadBandwidth.push(parseFloat(speed.uploadBandwidth * 8 / 1000000).toFixed(2));
         id.push(speed.id);
@@ -71,7 +71,7 @@ function graphicConstruct(speedtests) {
                         .done(function (data) {                            
                             if (data.message === 'success') {
                                 let d = new Date(data.result.timestamp);
-
+                                console.log(data.result.timestamp);
                                 modalDateTime.text(d.toLocaleDateString(LOCALE) + " " + d.toLocaleTimeString(LOCALE));                                                                                                                          //01
                                 modalPingJitter.text(parseFloat(data.result.pingJitter).toLocaleString(LOCALE) + " ms");                                 //02
                                 modalPingLatency.text(parseFloat(data.result.pingLatency).toLocaleString(LOCALE) + " ms");                               //03
